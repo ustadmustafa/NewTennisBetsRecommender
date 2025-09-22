@@ -22,10 +22,13 @@ namespace merzigo.bms.tennis.Controllers
 
             var livescore = await _apiService.GetLivescore();
 
+            var upcoming = await _apiService.GetFixtures(DateTime.Now, DateTime.Now.AddDays(30));
+
             var vm = new HomeViewModel
             {
                 Events = events ?? new List<Events>(),
-                Livescores = livescore ?? new List<merzigo.bms.tennis.Models.Livescore.Livescore>()
+                Livescores = livescore ?? new List<merzigo.bms.tennis.Models.Livescore.Livescore>(),
+                Upcoming = upcoming ?? new List<Models.Fixtures>(),
             };
 
             return View(vm);

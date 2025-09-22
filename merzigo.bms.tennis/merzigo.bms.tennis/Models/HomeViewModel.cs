@@ -9,5 +9,7 @@ namespace merzigo.bms.tennis.Models
         public List<Livescore.Livescore> Livescores { get; set; } = new();
         public List<Events> Events { get; set; } = new();
         public long? SelectedEventTypeKey { get; set; }
+
+        public List<Fixtures> Upcoming { get; set; } = new();
     }
 }

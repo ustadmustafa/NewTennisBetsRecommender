@@ -5,12 +5,30 @@
 
     // Shared filtering variables computed once
     var allMatches = Model?.Livescores ?? new List<merzigo.bms.tennis.Models.Livescore.Livescore>();
+    var allUpcoming = Model?.Upcoming ?? new List<merzigo.bms.tennis.Models.Fixtures>();
     long selectedKeyFromVm = Model?.SelectedEventTypeKey ?? 0;
     string selectedKeyFromQuery = Context.Request.Query["eventTypeKey"]; // empty if not provided
     bool hasVmSelection = selectedKeyFromVm > 0;
     bool hasQuerySelection = !string.IsNullOrWhiteSpace(selectedKeyFromQuery);
 
     Func<merzigo.bms.tennis.Models.Livescore.Livescore, bool> eventTypeFilter = (m) =>
+    {
+        if (!hasVmSelection && !hasQuerySelection) return true;
+        if (Model?.Events == null || Model.Events.Count == 0) return true;
+
+        if (hasVmSelection)
+        {
+            var et = Model.Events.FirstOrDefault(x => x.EventTypeKey == selectedKeyFromVm)?.EventTypeType;
+            return string.IsNullOrEmpty(et) || m.EventTypeType == et;
+        }
+        else
+        {
+            var et = Model.Events.FirstOrDefault(x => x.EventTypeKey.ToString() == selectedKeyFromQuery)?.EventTypeType;
+            return string.IsNullOrEmpty(et) || m.EventTypeType == et;
+        }
+    };
+
+    Func<merzigo.bms.tennis.Models.Fixtures, bool> eventTypeFilterUpcoming = (m) =>
     {
         if (!hasVmSelection && !hasQuerySelection) return true;
         if (Model?.Events == null || Model.Events.Count == 0) return true;
@@ -230,10 +248,16 @@
                 <!-- Upcoming Matches -->
                 <div class="tab-pane fade" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
                     @{
-                        var filteredUpcoming = allMatches.Where(eventTypeFilter).ToList();
-                        var upcomingMatches = filteredUpcoming.Where(m => m.EventStatus?.ToLower().Contains("not started") == true ||
-                            m.EventStatus?.ToLower().Contains("upcoming") == true ||
-                            m.EventStatus?.ToLower().Contains("scheduled") == true).ToList();
+                        var filteredUpcoming = allUpcoming.Where(eventTypeFilterUpcoming).ToList();
+                        var upcomingMatches = filteredUpcoming
+                            .Where(m => {
+                                var status = (m.EventStatus ?? string.Empty).ToLower();
+                                var isLive = status.Contains("live") || (m.EventLive ?? string.Empty) == "1";
+                                var isFinished = status.Contains("finished") || status.Contains("ended") || status.Contains("completed");
+                                return !isLive && !isFinished; // show everything else as upcoming
+                             })
+                            .OrderBy(m => DateTime.TryParse($"{m.EventDate} {m.EventTime}", out var dt) ? dt : DateTime.MaxValue)
+                            .ToList();
                     }
 
                     @if (upcomingMatches.Any())
