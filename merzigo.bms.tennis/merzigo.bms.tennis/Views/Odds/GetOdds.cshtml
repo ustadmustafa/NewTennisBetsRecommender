@@ -1,0 +1,442 @@
+@model merzigo.bms.tennis.Models.Odds.OddsResponse
+@{
+    ViewData["Title"] = "Tennis Odds";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Tennis Betting Odds</h2>
+            
+            @if (Model != null && Model.Result != null && Model.Result.Any())
+            {
+                @foreach (var matchOdds in Model.Result)
+                {
+                    var odds = matchOdds.Value;
+                    
+                    <div class="card mb-4">
+                        <div class="card-header bg-info text-white">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-chart-line"></i> 
+                                        Match Odds - Match Key: @matchOdds.Key
+                                    </h5>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    <span class="badge bg-light text-dark">Available Markets</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            
+                            <!-- Home/Away Odds -->
+                            @if (odds.HomeAway != null && (odds.HomeAway.Home.Any() || odds.HomeAway.Away.Any()))
+                            {
+                                <div class="row mb-4">
+                                    <div class="col-12">
+                                        <h6 class="mb-3">
+                                            <i class="fas fa-trophy text-warning"></i> 
+                                            Home/Away (Match Winner)
+                                        </h6>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover">
+                                                <thead class="table-dark">
+                                                    <tr>
+                                                        <th scope="col">Bookmaker</th>
+                                                        <th scope="col">Player 1 (Home)</th>
+                                                        <th scope="col">Player 2 (Away)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{
+                                                        var allBookmakers = odds.HomeAway.Home.Keys.Union(odds.HomeAway.Away.Keys).Distinct();
+                                                    }
+                                                    @foreach (var bookmaker in allBookmakers)
+                                                    {
+                                                        <tr>
+                                                            <td><strong>@bookmaker</strong></td>
+                                                            <td>
+                                                                @if (odds.HomeAway.Home.ContainsKey(bookmaker))
+                                                                {
+                                                                    <span class="badge bg-success fs-6">@odds.HomeAway.Home[bookmaker]</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="text-muted">-</span>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                @if (odds.HomeAway.Away.ContainsKey(bookmaker))
+                                                                {
+                                                                    <span class="badge bg-danger fs-6">@odds.HomeAway.Away[bookmaker]</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="text-muted">-</span>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <!-- Home/Away First Set -->
+                            @if (odds.HomeAwayFirstSet != null && (odds.HomeAwayFirstSet.Home.Any() || odds.HomeAwayFirstSet.Away.Any()))
+                            {
+                                <div class="row mb-4">
+                                    <div class="col-12">
+                                        <h6 class="mb-3">
+                                            <i class="fas fa-play text-primary"></i> 
+                                            Home/Away (1st Set)
+                                        </h6>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover">
+                                                <thead class="table-dark">
+                                                    <tr>
+                                                        <th scope="col">Bookmaker</th>
+                                                        <th scope="col">Player 1 (Home)</th>
+                                                        <th scope="col">Player 2 (Away)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{
+                                                        var firstSetBookmakers = odds.HomeAwayFirstSet.Home.Keys.Union(odds.HomeAwayFirstSet.Away.Keys).Distinct();
+                                                    }
+                                                    @foreach (var bookmaker in firstSetBookmakers)
+                                                    {
+                                                        <tr>
+                                                            <td><strong>@bookmaker</strong></td>
+                                                            <td>
+                                                                @if (odds.HomeAwayFirstSet.Home.ContainsKey(bookmaker))
+                                                                {
+                                                                    <span class="badge bg-success fs-6">@odds.HomeAwayFirstSet.Home[bookmaker]</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="text-muted">-</span>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                @if (odds.HomeAwayFirstSet.Away.ContainsKey(bookmaker))
+                                                                {
+                                                                    <span class="badge bg-danger fs-6">@odds.HomeAwayFirstSet.Away[bookmaker]</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="text-muted">-</span>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <!-- Correct Score 1st Half -->
+                            @if (odds.CorrectScoreFirstHalf != null && odds.CorrectScoreFirstHalf.Any())
+                            {
+                                <div class="row mb-4">
+                                    <div class="col-12">
+                                        <h6 class="mb-3">
+                                            <i class="fas fa-target text-info"></i> 
+                                            Correct Score 1st Half
+                                        </h6>
+                                        <div class="accordion" id="correctScoreAccordion@(matchOdds.Key)">
+                                            @for (int i = 0; i < odds.CorrectScoreFirstHalf.Count; i++)
+                                            {
+                                                var score = odds.CorrectScoreFirstHalf.ElementAt(i);
+                                                var collapseId = $"correctScoreCollapse@(matchOdds.Key)_{i}";
+                                                var headingId = $"correctScoreHeading@(matchOdds.Key)_{i}";
+                                                
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="@headingId">
+                                                        <button class="accordion-button collapsed" type="button" 
+                                                                data-bs-toggle="collapse" data-bs-target="#@collapseId" 
+                                                                aria-expanded="false" aria-controls="@collapseId">
+                                                            <strong>@score.Key</strong>
+                                                            <span class="badge bg-info ms-2">@score.Value.Count markets</span>
+                                                        </button>
+                                                    </h2>
+                                                    <div id="@collapseId" class="accordion-collapse collapse" 
+                                                         aria-labelledby="@headingId" data-bs-parent="#correctScoreAccordion@(matchOdds.Key)">
+                                                        <div class="accordion-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-sm">
+                                                                    <thead class="table-light">
+                                                                        <tr>
+                                                                            <th>Bookmaker</th>
+                                                                            <th>Odds</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach (var bookmaker in score.Value)
+                                                                        {
+                                                                            <tr>
+                                                                                <td>@bookmaker.Key</td>
+                                                                                <td><span class="badge bg-primary">@bookmaker.Value</span></td>
+                                                                            </tr>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <!-- Set Betting -->
+                            @if (odds.SetBetting != null && odds.SetBetting.Any())
+                            {
+                                <div class="row mb-4">
+                                    <div class="col-12">
+                                        <h6 class="mb-3">
+                                            <i class="fas fa-dice text-success"></i> 
+                                            Set Betting
+                                        </h6>
+                                        <div class="accordion" id="setBettingAccordion@(matchOdds.Key)">
+                                            @for (int i = 0; i < odds.SetBetting.Count; i++)
+                                            {
+                                                var betting = odds.SetBetting.ElementAt(i);
+                                                var collapseId = $"setBettingCollapse@(matchOdds.Key)_{i}";
+                                                var headingId = $"setBettingHeading@(matchOdds.Key)_{i}";
+                                                
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="@headingId">
+                                                        <button class="accordion-button collapsed" type="button" 
+                                                                data-bs-toggle="collapse" data-bs-target="#@collapseId" 
+                                                                aria-expanded="false" aria-controls="@collapseId">
+                                                            <strong>@betting.Key</strong>
+                                                            <span class="badge bg-success ms-2">@betting.Value.Count markets</span>
+                                                        </button>
+                                                    </h2>
+                                                    <div id="@collapseId" class="accordion-collapse collapse" 
+                                                         aria-labelledby="@headingId" data-bs-parent="#setBettingAccordion@(matchOdds.Key)">
+                                                        <div class="accordion-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-sm">
+                                                                    <thead class="table-light">
+                                                                        <tr>
+                                                                            <th>Bookmaker</th>
+                                                                            <th>Odds</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach (var bookmaker in betting.Value)
+                                                                        {
+                                                                            <tr>
+                                                                                <td>@bookmaker.Key</td>
+                                                                                <td><span class="badge bg-success">@bookmaker.Value</span></td>
+                                                                            </tr>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <!-- Win Straight Sets Player 1 -->
+                            @if (odds.WinStraightSetsPlayer1 != null && odds.WinStraightSetsPlayer1.Any())
+                            {
+                                <div class="row mb-4">
+                                    <div class="col-12">
+                                        <h6 class="mb-3">
+                                            <i class="fas fa-medal text-warning"></i> 
+                                            Win In Straight Sets (Player 1)
+                                        </h6>
+                                        <div class="accordion" id="winStraightSetsPlayer1Accordion@(matchOdds.Key)">
+                                            @for (int i = 0; i < odds.WinStraightSetsPlayer1.Count; i++)
+                                            {
+                                                var straightSet = odds.WinStraightSetsPlayer1.ElementAt(i);
+                                                var collapseId = $"winStraightSetsPlayer1Collapse@(matchOdds.Key)_{i}";
+                                                var headingId = $"winStraightSetsPlayer1Heading@(matchOdds.Key)_{i}";
+                                                
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="@headingId">
+                                                        <button class="accordion-button collapsed" type="button" 
+                                                                data-bs-toggle="collapse" data-bs-target="#@collapseId" 
+                                                                aria-expanded="false" aria-controls="@collapseId">
+                                                            <strong>@straightSet.Key</strong>
+                                                            <span class="badge bg-warning text-dark ms-2">@straightSet.Value.Count markets</span>
+                                                        </button>
+                                                    </h2>
+                                                    <div id="@collapseId" class="accordion-collapse collapse" 
+                                                         aria-labelledby="@headingId" data-bs-parent="#winStraightSetsPlayer1Accordion@(matchOdds.Key)">
+                                                        <div class="accordion-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-sm">
+                                                                    <thead class="table-light">
+                                                                        <tr>
+                                                                            <th>Bookmaker</th>
+                                                                            <th>Odds</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach (var bookmaker in straightSet.Value)
+                                                                        {
+                                                                            <tr>
+                                                                                <td>@bookmaker.Key</td>
+                                                                                <td><span class="badge bg-warning text-dark">@bookmaker.Value</span></td>
+                                                                            </tr>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <!-- Win Straight Sets Player 2 -->
+                            @if (odds.WinStraightSetsPlayer2 != null && odds.WinStraightSetsPlayer2.Any())
+                            {
+                                <div class="row mb-4">
+                                    <div class="col-12">
+                                        <h6 class="mb-3">
+                                            <i class="fas fa-medal text-warning"></i> 
+                                            Win In Straight Sets (Player 2)
+                                        </h6>
+                                        <div class="accordion" id="winStraightSetsPlayer2Accordion@(matchOdds.Key)">
+                                            @for (int i = 0; i < odds.WinStraightSetsPlayer2.Count; i++)
+                                            {
+                                                var straightSet = odds.WinStraightSetsPlayer2.ElementAt(i);
+                                                var collapseId = $"winStraightSetsPlayer2Collapse@(matchOdds.Key)_{i}";
+                                                var headingId = $"winStraightSetsPlayer2Heading@(matchOdds.Key)_{i}";
+                                                
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="@headingId">
+                                                        <button class="accordion-button collapsed" type="button" 
+                                                                data-bs-toggle="collapse" data-bs-target="#@collapseId" 
+                                                                aria-expanded="false" aria-controls="@collapseId">
+                                                            <strong>@straightSet.Key</strong>
+                                                            <span class="badge bg-warning text-dark ms-2">@straightSet.Value.Count markets</span>
+                                                        </button>
+                                                    </h2>
+                                                    <div id="@collapseId" class="accordion-collapse collapse" 
+                                                         aria-labelledby="@headingId" data-bs-parent="#winStraightSetsPlayer2Accordion@(matchOdds.Key)">
+                                                        <div class="accordion-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-sm">
+                                                                    <thead class="table-light">
+                                                                        <tr>
+                                                                            <th>Bookmaker</th>
+                                                                            <th>Odds</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach (var bookmaker in straightSet.Value)
+                                                                        {
+                                                                            <tr>
+                                                                                <td>@bookmaker.Key</td>
+                                                                                <td><span class="badge bg-warning text-dark">@bookmaker.Value</span></td>
+                                                                            </tr>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                }
+                
+                <div class="mt-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <small class="text-muted">Total Matches: @Model.Result.Count</small>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <small class="text-muted">
+                                Available Markets: Multiple betting types
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info" role="alert">
+                    <h4 class="alert-heading">No Odds Available!</h4>
+                    <p>There are currently no betting odds available to display.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        border: 1px solid rgba(0, 0, 0, 0.125);
+    }
+    
+    .card-header {
+        font-weight: bold;
+    }
+    
+    .badge {
+        font-size: 0.75em;
+    }
+    
+    .accordion-button {
+        font-size: 0.9rem;
+    }
+    
+    .table td {
+        vertical-align: middle;
+    }
+    
+    .fs-6 {
+        font-size: 1rem !important;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            console.log('Odds page loaded');
+            
+            // Add click functionality for odds
+            $('.badge').click(function() {
+                var oddsValue = $(this).text();
+                var bookmaker = $(this).closest('tr').find('td:first').text();
+                alert('Bookmaker: ' + bookmaker + '\nOdds: ' + oddsValue);
+            });
+            
+            // Auto-refresh functionality for odds
+            setInterval(function() {
+                console.log('Checking for odds updates...');
+                // Add auto-refresh logic here if needed
+            }, 60000); // Refresh every minute
+        });
+    </script>
+}

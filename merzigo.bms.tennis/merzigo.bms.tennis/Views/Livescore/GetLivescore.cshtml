@@ -1,0 +1,319 @@
+@model List<merzigo.bms.tennis.Models.Livescore.Livescore>
+@{
+    ViewData["Title"] = "Live Tennis Scores";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Live Tennis Scores</h2>
+            
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var match in Model)
+                {
+                    <div class="card mb-4">
+                        <div class="card-header @(match.EventLive == "1" ? "bg-danger" : "bg-primary") text-white">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h5 class="mb-0">
+                                        @if (match.EventLive == "1")
+                                        {
+                                            <i class="fas fa-broadcast-tower"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fas fa-tennis-ball"></i>
+                                        }
+                                        @match.TournamentName - @match.TournamentRound
+                                        @if (match.EventLive == "1")
+                                        {
+                                            <span class="badge bg-warning text-dark ms-2">
+                                                <i class="fas fa-circle text-danger" style="animation: pulse 1.5s infinite;"></i>
+                                                LIVE
+                                            </span>
+                                        }
+                                    </h5>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    <small>@match.EventDate @match.EventTime</small><br>
+                                    <small>Event Key: @match.EventKey</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <!-- Match Players and Current Score -->
+                            <div class="row mb-4">
+                                <div class="col-md-5">
+                                    <div class="d-flex align-items-center">
+                                        @if (!string.IsNullOrEmpty(match.EventFirstPlayerLogo))
+                                        {
+                                            <img src="@match.EventFirstPlayerLogo" alt="@match.EventFirstPlayer" 
+                                                 class="me-3" style="width: 50px; height: 50px; border-radius: 50%;">
+                                        }
+                                        <div>
+                                            <h6 class="mb-1">@match.EventFirstPlayer</h6>
+                                            <small class="text-muted">Key: @match.FirstPlayerKey</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <div class="score-display">
+                                        @if (!string.IsNullOrEmpty(match.EventGameResult))
+                                        {
+                                            <h4 class="mb-0 text-primary">@match.EventGameResult</h4>
+                                        }
+                                        @if (!string.IsNullOrEmpty(match.EventFinalResult))
+                                        {
+                                            <div class="text-muted small">Final: @match.EventFinalResult</div>
+                                        }
+                                        @if (!string.IsNullOrEmpty(match.EventServe))
+                                        {
+                                            <div class="badge bg-info mt-1">Serve: @match.EventServe</div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="d-flex align-items-center justify-content-end">
+                                        <div class="text-end">
+                                            <h6 class="mb-1">@match.EventSecondPlayer</h6>
+                                            <small class="text-muted">Key: @match.SecondPlayerKey</small>
+                                        </div>
+                                        @if (!string.IsNullOrEmpty(match.EventSecondPlayerLogo))
+                                        {
+                                            <img src="@match.EventSecondPlayerLogo" alt="@match.EventSecondPlayer" 
+                                                 class="ms-3" style="width: 50px; height: 50px; border-radius: 50%;">
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Match Status and Winner -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    @{
+                                        var statusClass = match.EventStatus?.ToLower() switch
+                                        {
+                                            "finished" => "bg-success",
+                                            "live" => "bg-danger",
+                                            "upcoming" => "bg-warning",
+                                            "postponed" => "bg-secondary",
+                                            _ => "bg-light text-dark"
+                                        };
+                                    }
+                                    <span class="badge @statusClass fs-6">Status: @match.EventStatus</span>
+                                </div>
+                                <div class="col-md-6 text-end">
+                                    @if (!string.IsNullOrEmpty(match.EventWinner))
+                                    {
+                                        <span class="badge bg-success fs-6">Winner: @match.EventWinner</span>
+                                    }
+                                </div>
+                            </div>
+
+                            <!-- Set Scores -->
+                            @if (match.Scores != null && match.Scores.Any())
+                            {
+                                <div class="row mb-4">
+                                    <div class="col-12">
+                                        <h6 class="mb-3">Set Scores:</h6>
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-bordered">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th>Set</th>
+                                                        <th>@match.EventFirstPlayer</th>
+                                                        <th>@match.EventSecondPlayer</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var score in match.Scores)
+                                                    {
+                                                        <tr>
+                                                            <td>Set @score.ScoreSet</td>
+                                                            <td class="text-center">@score.ScoreFirst</td>
+                                                            <td class="text-center">@score.ScoreSecond</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <!-- Point by Point Details -->
+                            @if (match.PointByPoint != null && match.PointByPoint.Any())
+                            {
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h6 class="mb-3">Point by Point:</h6>
+                                        <div class="accordion" id="accordion@(match.EventKey)">
+                                            @for (int i = 0; i < match.PointByPoint.Count; i++)
+                                            {
+                                                var point = match.PointByPoint[i];
+                                                var collapseId = $"collapse{match.EventKey}_{i}";
+                                                var headingId = $"heading{match.EventKey}_{i}";
+                                                
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="@headingId">
+                                                        <button class="accordion-button @(i > 0 ? "collapsed" : "")" type="button" 
+                                                                data-bs-toggle="collapse" data-bs-target="#@collapseId" 
+                                                                aria-expanded="@(i == 0 ? "true" : "false")" aria-controls="@collapseId">
+                                                            <strong>Set @point.SetNumber - Game @point.NumberGame</strong>
+                                                            <span class="badge bg-primary ms-2">@point.Score</span>
+                                                            @if (!string.IsNullOrEmpty(point.PlayerServed))
+                                                            {
+                                                                <span class="badge bg-info ms-1">Serve: @point.PlayerServed</span>
+                                                            }
+                                                        </button>
+                                                    </h2>
+                                                    <div id="@collapseId" class="accordion-collapse collapse @(i == 0 ? "show" : "")" 
+                                                         aria-labelledby="@headingId" data-bs-parent="#accordion@(match.EventKey)">
+                                                        <div class="accordion-body">
+                                                            @if (point.Points != null && point.Points.Any())
+                                                            {
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-sm">
+                                                                        <thead class="table-light">
+                                                                            <tr>
+                                                                                <th>Point</th>
+                                                                                <th>Score</th>
+                                                                                <th>Break Point</th>
+                                                                                <th>Set Point</th>
+                                                                                <th>Match Point</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach (var p in point.Points)
+                                                                            {
+                                                                                <tr>
+                                                                                    <td>@p.NumberPoint</td>
+                                                                                    <td><strong>@p.Score</strong></td>
+                                                                                    <td>
+                                                                                        @if (!string.IsNullOrEmpty(p.BreakPoint) && p.BreakPoint == "1")
+                                                                                        {
+                                                            <span class="badge bg-warning text-dark">Break Point</span>
+                                                                                        }
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        @if (!string.IsNullOrEmpty(p.SetPoint) && p.SetPoint == "1")
+                                                                                        {
+                                                            <span class="badge bg-info">Set Point</span>
+                                                                                        }
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        @if (!string.IsNullOrEmpty(p.MatchPoint) && p.MatchPoint == "1")
+                                                                                        {
+                                                            <span class="badge bg-danger">Match Point</span>
+                                                                                        }
+                                                                                    </td>
+                                                                                </tr>
+                                                                            }
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p class="text-muted">No detailed points available for this game.</p>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-info" role="alert">
+                                    <i class="fas fa-info-circle"></i>
+                                    No point-by-point details available for this match.
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                
+                <div class="mt-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <small class="text-muted">Total Matches: @Model.Count</small>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <small class="text-muted">
+                                Live Matches: @Model.Count(m => m.EventLive == "1") | 
+                                Finished: @Model.Count(m => m.EventStatus?.ToLower() == "finished")
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info" role="alert">
+                    <h4 class="alert-heading">No Live Scores Available!</h4>
+                    <p>There are currently no live tennis scores available to display.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    @@keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.5; }
+        100% { opacity: 1; }
+    }
+    
+    .score-display {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 10px;
+        padding: 15px;
+        border: 2px solid #dee2e6;
+    }
+    
+    .card {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        border: 1px solid rgba(0, 0, 0, 0.125);
+    }
+    
+    .accordion-button {
+        font-size: 0.9rem;
+    }
+    
+    .badge {
+        font-size: 0.75em;
+    }
+    
+    .table td {
+        vertical-align: middle;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            console.log('Livescore page loaded');
+            
+            // Auto-refresh functionality for live matches
+            setInterval(function() {
+                // Check if there are any live matches
+                var liveMatches = $('.badge:contains("LIVE")');
+                if (liveMatches.length > 0) {
+                    console.log('Live matches detected, checking for updates...');
+                    // Add auto-refresh logic here if needed
+                }
+            }, 10000); // Check every 10 seconds
+            
+            // Add click functionality for live matches
+            $('.badge.bg-danger').click(function() {
+                alert('This match is currently live!');
+            });
+        });
+    </script>
+}

@@ -1,0 +1,252 @@
+﻿@model merzigo.bms.tennis.Models.OddSuggestionViewModel
+@{
+    ViewData["Title"] = "Bahis Önerisi";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-3">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <h2 class="mb-0"><i class="fas fa-coins"></i> Bahis Önerisi</h2>
+            <a class="btn btn-outline-secondary btn-sm" href="javascript:history.back()">
+                <i class="fas fa-arrow-left"></i> Geri
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <strong>@(Model?.Player1Name ?? "Oyuncu 1") - Son Karşılaşmalar</strong>
+                    <span class="badge bg-light text-dark">@((Model?.FixturesPlayer1?.Count ?? 0))</span>
+                </div>
+                <div class="card-body p-0">
+                    @if (Model?.FixturesPlayer1 != null && Model.FixturesPlayer1.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Tarih</th>
+                                        <th>Turnuva</th>
+                                        <th>Rakip</th>
+                                        <th>Skor</th>
+                                        <th>Durum</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var f in Model.FixturesPlayer1.OrderByDescending(x => x.EventDate).ThenByDescending(x => x.EventTime))
+                                    {
+                                        var opponentName = f.FirstPlayerKey == Model.Player1Id ? f.EventSecondPlayer : f.EventFirstPlayer;
+                                        <tr>
+                                            <td>
+                                                <small>@f.EventDate @f.EventTime</small>
+                                            </td>
+                                            <td>
+                                                <small>@f.TournamentName</small>
+                                            </td>
+                                            <td>
+                                                <small>@opponentName</small>
+                                            </td>
+                                            <td>
+                                                <small>@(string.IsNullOrWhiteSpace(f.EventFinalResult) ? f.EventGameResult : f.EventFinalResult)</small>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-@GetStatusColor(f.EventStatus)">@f.EventStatus</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="p-4 text-center text-muted">Kayıt bulunamadı.</div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                    <strong>@(Model?.Player2Name ?? "Oyuncu 2") - Son Karşılaşmalar</strong>
+                    <span class="badge bg-light text-dark">@((Model?.FixturesPlayer2?.Count ?? 0))</span>
+                </div>
+                <div class="card-body p-0">
+                    @if (Model?.FixturesPlayer2 != null && Model.FixturesPlayer2.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Tarih</th>
+                                        <th>Turnuva</th>
+                                        <th>Rakip</th>
+                                        <th>Skor</th>
+                                        <th>Durum</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var f in Model.FixturesPlayer2.OrderByDescending(x => x.EventDate).ThenByDescending(x => x.EventTime))
+                                    {
+                                        var opponentName = f.FirstPlayerKey == Model.Player2Id ? f.EventSecondPlayer : f.EventFirstPlayer;
+                                        <tr>
+                                            <td>
+                                                <small>@f.EventDate @f.EventTime</small>
+                                            </td>
+                                            <td>
+                                                <small>@f.TournamentName</small>
+                                            </td>
+                                            <td>
+                                                <small>@opponentName</small>
+                                            </td>
+                                            <td>
+                                                <small>@(string.IsNullOrWhiteSpace(f.EventFinalResult) ? f.EventGameResult : f.EventFinalResult)</small>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-@GetStatusColor(f.EventStatus)">@f.EventStatus</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="p-4 text-center text-muted">Kayıt bulunamadı.</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- H2H Section -->
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <strong>Head-to-Head (H2H)</strong>
+                </div>
+                <div class="card-body">
+                    @if (Model?.H2H != null)
+                    {
+                        <div class="row">
+                            <div class="col-lg-4 mb-3">
+                                <h6 class="text-muted">Birbirlerine Karşı</h6>
+                                @if (Model.H2H.H2H != null && Model.H2H.H2H.Any())
+                                {
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-striped align-middle mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Tarih</th>
+                                                    <th>Turnuva</th>
+                                                    <th>Skor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var m in Model.H2H.H2H.OrderByDescending(x => x.EventDate).ThenByDescending(x => x.EventTime))
+                                                {
+                                                    <tr>
+                                                        <td><small>@m.EventDate @m.EventTime</small></td>
+                                                        <td><small>@m.TournamentName</small></td>
+                                                        <td><small>@(string.IsNullOrWhiteSpace(m.EventFinalResult) ? m.EventGameResult : m.EventFinalResult)</small></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="text-muted">Kayıt bulunamadı.</div>
+                                }
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <h6 class="text-muted">@(Model?.Player1Name ?? "Oyuncu 1") Sonuçları</h6>
+                                @if (Model.H2H.FirstPlayerResults != null && Model.H2H.FirstPlayerResults.Any())
+                                {
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-striped align-middle mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Tarih</th>
+                                                    <th>Rakip</th>
+                                                    <th>Skor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var m in Model.H2H.FirstPlayerResults.OrderByDescending(x => x.EventDate).ThenByDescending(x => x.EventTime))
+                                                {
+                                                    <tr>
+                                                        <td><small>@m.EventDate @m.EventTime</small></td>
+                                                        <td><small>@m.EventSecondPlayer</small></td>
+                                                        <td><small>@(string.IsNullOrWhiteSpace(m.EventFinalResult) ? m.EventGameResult : m.EventFinalResult)</small></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="text-muted">Kayıt bulunamadı.</div>
+                                }
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <h6 class="text-muted">@(Model?.Player2Name ?? "Oyuncu 2") Sonuçları</h6>
+                                @if (Model.H2H.SecondPlayerResults != null && Model.H2H.SecondPlayerResults.Any())
+                                {
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-striped align-middle mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Tarih</th>
+                                                    <th>Rakip</th>
+                                                    <th>Skor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var m in Model.H2H.SecondPlayerResults.OrderByDescending(x => x.EventDate).ThenByDescending(x => x.EventTime))
+                                                {
+                                                    <tr>
+                                                        <td><small>@m.EventDate @m.EventTime</small></td>
+                                                        <td><small>@m.EventFirstPlayer</small></td>
+                                                        <td><small>@(string.IsNullOrWhiteSpace(m.EventFinalResult) ? m.EventGameResult : m.EventFinalResult)</small></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="text-muted">Kayıt bulunamadı.</div>
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-muted">H2H verisi bulunamadı.</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    private string GetStatusColor(string status)
+    {
+        var s = status?.ToLowerInvariant() ?? string.Empty;
+        if (s.Contains("live")) return "danger";
+        if (s.Contains("finished") || s.Contains("ended") || s.Contains("completed")) return "success";
+        if (s.Contains("upcoming") || s.Contains("scheduled") || s.Contains("not started")) return "warning text-dark";
+        return "secondary";
+    }
+}

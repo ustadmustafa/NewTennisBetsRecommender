@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "cuscjtCcIi4=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\merzigo.bms.tennis.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mustafa.albayrak\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.22.1\\microsoft.visualstudio.azure.containers.tools.targets.1.22.1.nupkg.sha512"
+  ],
+  "logs": []
+}

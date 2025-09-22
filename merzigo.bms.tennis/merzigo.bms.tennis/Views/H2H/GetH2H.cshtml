@@ -1,0 +1,318 @@
+@model merzigo.bms.tennis.Models.H2HResult
+@{
+    ViewData["Title"] = "Head to Head";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Head to Head Analysis</h2>
+            
+            @if (Model != null)
+            {
+                <!-- H2H Matches Section -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-users"></i> 
+                            Head to Head Matches (@Model.H2H?.Count ?? 0)
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.H2H != null && Model.H2H.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Players</th>
+                                            <th scope="col">Tournament</th>
+                                            <th scope="col">Round</th>
+                                            <th scope="col">Result</th>
+                                            <th scope="col">Winner</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var match in Model.H2H)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <strong>@match.EventDate</strong><br>
+                                                    <small class="text-muted">@match.EventTime</small>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        @if (!string.IsNullOrEmpty(match.EventFirstPlayerLogo))
+                                                        {
+                                                            <img src="@match.EventFirstPlayerLogo" alt="@match.EventFirstPlayer" 
+                                                                 class="me-2" style="width: 20px; height: 20px; border-radius: 50%;">
+                                                        }
+                                                        <div>
+                                                            <strong>@match.EventFirstPlayer</strong><br>
+                                                            <small class="text-muted">vs</small><br>
+                                                            <strong>@match.EventSecondPlayer</strong>
+                                                            @if (!string.IsNullOrEmpty(match.EventSecondPlayerLogo))
+                                                            {
+                                                                <img src="@match.EventSecondPlayerLogo" alt="@match.EventSecondPlayer" 
+                                                                     class="ms-2" style="width: 20px; height: 20px; border-radius: 50%;">
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <strong>@match.TournamentName</strong><br>
+                                                    <small class="text-muted">@match.TournamentSeason</small>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-info">@match.TournamentRound</span>
+                                                </td>
+                                                <td>
+                                                    @if (!string.IsNullOrEmpty(match.EventFinalResult))
+                                                    {
+                                                        <span class="fw-bold">@match.EventFinalResult</span>
+                                                        @if (!string.IsNullOrEmpty(match.EventGameResult))
+                                                        {
+                                                            <br><small class="text-muted">@match.EventGameResult</small>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-muted">-</span>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if (!string.IsNullOrEmpty(match.EventWinner))
+                                                    {
+                                                        <span class="badge bg-success">@match.EventWinner</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-muted">-</span>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-info" role="alert">
+                                <i class="fas fa-info-circle"></i>
+                                No head-to-head matches found between these players.
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- First Player Results Section -->
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-user"></i> 
+                            First Player Recent Results (@Model.FirstPlayerResults?.Count ?? 0)
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.FirstPlayerResults != null && Model.FirstPlayerResults.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Opponent</th>
+                                            <th scope="col">Tournament</th>
+                                            <th scope="col">Result</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var match in Model.FirstPlayerResults)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <strong>@match.EventDate</strong><br>
+                                                    <small class="text-muted">@match.EventTime</small>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        @if (!string.IsNullOrEmpty(match.EventSecondPlayerLogo))
+                                                        {
+                                                            <img src="@match.EventSecondPlayerLogo" alt="@match.EventSecondPlayer" 
+                                                                 class="me-2" style="width: 20px; height: 20px; border-radius: 50%;">
+                                                        }
+                                                        <strong>@match.EventSecondPlayer</strong>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <strong>@match.TournamentName</strong><br>
+                                                    <small class="text-muted">@match.TournamentRound</small>
+                                                </td>
+                                                <td>
+                                                    @if (!string.IsNullOrEmpty(match.EventFinalResult))
+                                                    {
+                                                        <span class="fw-bold">@match.EventFinalResult</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-muted">-</span>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @{
+                                                        var statusClass = match.EventStatus?.ToLower() switch
+                                                        {
+                                                            "finished" => "bg-success",
+                                                            "live" => "bg-danger",
+                                                            "upcoming" => "bg-warning",
+                                                            "postponed" => "bg-secondary",
+                                                            _ => "bg-light text-dark"
+                                                        };
+                                                    }
+                                                    <span class="badge @statusClass">@match.EventStatus</span>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-info" role="alert">
+                                <i class="fas fa-info-circle"></i>
+                                No recent results found for the first player.
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Second Player Results Section -->
+                <div class="card mb-4">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0">
+                            <i class="fas fa-user"></i> 
+                            Second Player Recent Results (@Model.SecondPlayerResults?.Count ?? 0)
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.SecondPlayerResults != null && Model.SecondPlayerResults.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Opponent</th>
+                                            <th scope="col">Tournament</th>
+                                            <th scope="col">Result</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var match in Model.SecondPlayerResults)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <strong>@match.EventDate</strong><br>
+                                                    <small class="text-muted">@match.EventTime</small>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        @if (!string.IsNullOrEmpty(match.EventFirstPlayerLogo))
+                                                        {
+                                                            <img src="@match.EventFirstPlayerLogo" alt="@match.EventFirstPlayer" 
+                                                                 class="me-2" style="width: 20px; height: 20px; border-radius: 50%;">
+                                                        }
+                                                        <strong>@match.EventFirstPlayer</strong>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <strong>@match.TournamentName</strong><br>
+                                                    <small class="text-muted">@match.TournamentRound</small>
+                                                </td>
+                                                <td>
+                                                    @if (!string.IsNullOrEmpty(match.EventFinalResult))
+                                                    {
+                                                        <span class="fw-bold">@match.EventFinalResult</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-muted">-</span>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @{
+                                                        var statusClass = match.EventStatus?.ToLower() switch
+                                                        {
+                                                            "finished" => "bg-success",
+                                                            "live" => "bg-danger",
+                                                            "upcoming" => "bg-warning",
+                                                            "postponed" => "bg-secondary",
+                                                            _ => "bg-light text-dark"
+                                                        };
+                                                    }
+                                                    <span class="badge @statusClass">@match.EventStatus</span>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-info" role="alert">
+                                <i class="fas fa-info-circle"></i>
+                                No recent results found for the second player.
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">No H2H Data Available!</h4>
+                    <p>Unable to load head-to-head data. Please try again later.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .table td {
+        vertical-align: middle;
+    }
+    
+    .badge {
+        font-size: 0.75em;
+    }
+    
+    .card-header {
+        font-weight: bold;
+    }
+    
+    .card {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        border: 1px solid rgba(0, 0, 0, 0.125);
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            console.log('H2H page loaded');
+            
+            // Add any additional functionality here
+            $('.badge.bg-danger').click(function() {
+                alert('This match is currently live!');
+            });
+        });
+    </script>
+}

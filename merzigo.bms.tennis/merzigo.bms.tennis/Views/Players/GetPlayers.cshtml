@@ -1,0 +1,315 @@
+@model List<merzigo.bms.tennis.Models.Player>
+@{
+    ViewData["Title"] = "Tennis Players";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Tennis Players & Statistics</h2>
+            
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var player in Model)
+                {
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <div class="d-flex align-items-center">
+                                        @if (!string.IsNullOrEmpty(player.PlayerLogo))
+                                        {
+                                            <img src="@player.PlayerLogo" alt="@player.PlayerName" 
+                                                 class="me-3" style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid white;">
+                                        }
+                                        <div>
+                                            <h5 class="mb-1">@player.PlayerName</h5>
+                                            <small>Player Key: @player.PlayerKey</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    @if (!string.IsNullOrEmpty(player.PlayerCountry))
+                                    {
+                                        <span class="badge bg-light text-dark fs-6">
+                                            <i class="fas fa-flag"></i> @player.PlayerCountry
+                                        </span>
+                                    }
+                                    @if (!string.IsNullOrEmpty(player.PlayerBday))
+                                    {
+                                        <br><small class="mt-1 d-block">Born: @player.PlayerBday</small>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            
+                            @if (player.Stats != null && player.Stats.Any())
+                            {
+                                <!-- Player Statistics -->
+                                <div class="row mb-4">
+                                    <div class="col-12">
+                                        <h6 class="mb-3">
+                                            <i class="fas fa-chart-bar text-success"></i> 
+                                            Player Statistics (@player.Stats.Count seasons)
+                                        </h6>
+                                        <div class="accordion" id="playerStatsAccordion@(player.PlayerKey)">
+                                            @for (int i = 0; i < player.Stats.Count; i++)
+                                            {
+                                                var stat = player.Stats[i];
+                                                var collapseId = $"playerStatsCollapse@(player.PlayerKey)_{i}";
+                                                var headingId = $"playerStatsHeading@(player.PlayerKey)_{i}";
+                                                
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="@headingId">
+                                                        <button class="accordion-button @(i == 0 ? "" : "collapsed")" type="button" 
+                                                                data-bs-toggle="collapse" data-bs-target="#@collapseId" 
+                                                                aria-expanded="@(i == 0 ? "true" : "false")" aria-controls="@collapseId">
+                                                            <div class="d-flex justify-content-between w-100 me-3">
+                                                                <div>
+                                                                    <strong>@stat.Season</strong>
+                                                                    @if (!string.IsNullOrEmpty(stat.Type))
+                                                                    {
+                                                                        <span class="badge bg-info ms-2">@stat.Type</span>
+                                                                    }
+                                                                    @if (!string.IsNullOrEmpty(stat.Rank))
+                                                                    {
+                                                                        <span class="badge bg-warning text-dark ms-1">Rank: @stat.Rank</span>
+                                                                    }
+                                                                </div>
+                                                                @if (!string.IsNullOrEmpty(stat.Titles))
+                                                                {
+                                                                    <span class="badge bg-success">@stat.Titles Titles</span>
+                                                                }
+                                                            </div>
+                                                        </button>
+                                                    </h2>
+                                                    <div id="@collapseId" class="accordion-collapse collapse @(i == 0 ? "show" : "")" 
+                                                         aria-labelledby="@headingId" data-bs-parent="#playerStatsAccordion@(player.PlayerKey)">
+                                                        <div class="accordion-body">
+                                                            
+                                                            <!-- Overall Match Record -->
+                                                            @if (!string.IsNullOrEmpty(stat.MatchesWon) || !string.IsNullOrEmpty(stat.MatchesLost))
+                                                            {
+                                                                <div class="row mb-3">
+                                                                    <div class="col-12">
+                                                                        <h6 class="text-primary mb-2">Overall Match Record</h6>
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <div class="card bg-success text-white">
+                                                                                    <div class="card-body text-center">
+                                                                                        <h5 class="card-title">Won</h5>
+                                                                                        <h3 class="mb-0">@(stat.MatchesWon ?? "0")</h3>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="card bg-danger text-white">
+                                                                                    <div class="card-body text-center">
+                                                                                        <h5 class="card-title">Lost</h5>
+                                                                                        <h3 class="mb-0">@(stat.MatchesLost ?? "0")</h3>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+
+                                                            <!-- Surface Performance -->
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <h6 class="text-info mb-2">Surface Performance</h6>
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-striped table-hover">
+                                                                            <thead class="table-dark">
+                                                                                <tr>
+                                                                                    <th scope="col">Surface</th>
+                                                                                    <th scope="col">Won</th>
+                                                                                    <th scope="col">Lost</th>
+                                                                                    <th scope="col">Win Rate</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <!-- Hard Court -->
+                                                                                @if (!string.IsNullOrEmpty(stat.HardWon) || !string.IsNullOrEmpty(stat.HardLost))
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <span class="badge bg-secondary">
+                                                                                                <i class="fas fa-cube"></i> Hard Court
+                                                                                            </span>
+                                                                                        </td>
+                                                                                        <td><span class="badge bg-success">@(stat.HardWon ?? "0")</span></td>
+                                                                                        <td><span class="badge bg-danger">@(stat.HardLost ?? "0")</span></td>
+                                                                                        <td>
+                                                                                            @{
+                                                                                                var hardWon = string.IsNullOrEmpty(stat.HardWon) ? 0 : int.Parse(stat.HardWon);
+                                                                                                var hardLost = string.IsNullOrEmpty(stat.HardLost) ? 0 : int.Parse(stat.HardLost);
+                                                                                                var hardTotal = hardWon + hardLost;
+                                                                                                var hardWinRate = hardTotal > 0 ? Math.Round((double)hardWon / hardTotal * 100, 1) : 0;
+                                                                                            }
+                                                                                            <span class="badge @(hardWinRate >= 50 ? "bg-success" : "bg-warning text-dark")">
+                                                                                                @hardWinRate%
+                                                                                            </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
+                                                                                
+                                                                                <!-- Clay Court -->
+                                                                                @if (!string.IsNullOrEmpty(stat.ClayWon) || !string.IsNullOrEmpty(stat.ClayLost))
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <span class="badge bg-warning text-dark">
+                                                                                                <i class="fas fa-mountain"></i> Clay Court
+                                                                                            </span>
+                                                                                        </td>
+                                                                                        <td><span class="badge bg-success">@(stat.ClayWon ?? "0")</span></td>
+                                                                                        <td><span class="badge bg-danger">@(stat.ClayLost ?? "0")</span></td>
+                                                                                        <td>
+                                                                                            @{
+                                                                                                var clayWon = string.IsNullOrEmpty(stat.ClayWon) ? 0 : int.Parse(stat.ClayWon);
+                                                                                                var clayLost = string.IsNullOrEmpty(stat.ClayLost) ? 0 : int.Parse(stat.ClayLost);
+                                                                                                var clayTotal = clayWon + clayLost;
+                                                                                                var clayWinRate = clayTotal > 0 ? Math.Round((double)clayWon / clayTotal * 100, 1) : 0;
+                                                                                            }
+                                                                                            <span class="badge @(clayWinRate >= 50 ? "bg-success" : "bg-warning text-dark")">
+                                                                                                @clayWinRate%
+                                                                                            </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
+                                                                                
+                                                                                <!-- Grass Court -->
+                                                                                @if (!string.IsNullOrEmpty(stat.GrassWon) || !string.IsNullOrEmpty(stat.GrassLost))
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <span class="badge bg-success">
+                                                                                                <i class="fas fa-seedling"></i> Grass Court
+                                                                                            </span>
+                                                                                        </td>
+                                                                                        <td><span class="badge bg-success">@(stat.GrassWon ?? "0")</span></td>
+                                                                                        <td><span class="badge bg-danger">@(stat.GrassLost ?? "0")</span></td>
+                                                                                        <td>
+                                                                                            @{
+                                                                                                var grassWon = string.IsNullOrEmpty(stat.GrassWon) ? 0 : int.Parse(stat.GrassWon);
+                                                                                                var grassLost = string.IsNullOrEmpty(stat.GrassLost) ? 0 : int.Parse(stat.GrassLost);
+                                                                                                var grassTotal = grassWon + grassLost;
+                                                                                                var grassWinRate = grassTotal > 0 ? Math.Round((double)grassWon / grassTotal * 100, 1) : 0;
+                                                                                            }
+                                                                                            <span class="badge @(grassWinRate >= 50 ? "bg-success" : "bg-warning text-dark")">
+                                                                                                @grassWinRate%
+                                                                                            </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-info" role="alert">
+                                    <i class="fas fa-info-circle"></i>
+                                    No statistics available for this player.
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                
+                <div class="mt-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <small class="text-muted">Total Players: @Model.Count</small>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <small class="text-muted">
+                                Players with Stats: @Model.Count(p => p.Stats != null && p.Stats.Any())
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info" role="alert">
+                    <h4 class="alert-heading">No Players Found!</h4>
+                    <p>There are currently no players available to display.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        border: 1px solid rgba(0, 0, 0, 0.125);
+    }
+    
+    .card-header {
+        font-weight: bold;
+    }
+    
+    .badge {
+        font-size: 0.75em;
+    }
+    
+    .accordion-button {
+        font-size: 0.9rem;
+    }
+    
+    .table td {
+        vertical-align: middle;
+    }
+    
+    .fs-6 {
+        font-size: 1rem !important;
+    }
+    
+    .card.bg-success, .card.bg-danger {
+        border: none;
+    }
+    
+    .accordion-button:not(.collapsed) {
+        background-color: #f8f9fa;
+        border-color: #dee2e6;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            console.log('Players page loaded');
+            
+            // Add click functionality for player logos
+            $('img[alt*="Player"]').click(function() {
+                var playerName = $(this).attr('alt');
+                alert('Player: ' + playerName);
+            });
+            
+            // Add hover effects for statistics cards
+            $('.card.bg-success, .card.bg-danger').hover(
+                function() {
+                    $(this).addClass('shadow-lg');
+                },
+                function() {
+                    $(this).removeClass('shadow-lg');
+                }
+            );
+        });
+    </script>
+}

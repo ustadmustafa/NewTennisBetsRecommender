@@ -1,0 +1,15 @@
+﻿
+namespace merzigo.bms.tennis.Models
+{
+    public class OddSuggestionViewModel
+    {
+        public List<Fixtures> FixturesPlayer1 { get; set; } = new();
+        public List<Fixtures> FixturesPlayer2 { get; set; } = new();
+        public H2HResult? H2H { get; set; }
+
+        public string? Player1Name { get; set; }
+        public string? Player2Name { get; set; }
+        public long Player1Id { get; set; }
+        public long Player2Id { get; set; }
+    }
+}

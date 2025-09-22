@@ -1,0 +1,475 @@
+﻿@model merzigo.bms.tennis.Models.HomeViewModel
+@{
+    ViewData["Title"] = "Tennis Live Matches";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+
+    // Shared filtering variables computed once
+    var allMatches = Model?.Livescores ?? new List<merzigo.bms.tennis.Models.Livescore.Livescore>();
+    long selectedKeyFromVm = Model?.SelectedEventTypeKey ?? 0;
+    string selectedKeyFromQuery = Context.Request.Query["eventTypeKey"]; // empty if not provided
+    bool hasVmSelection = selectedKeyFromVm > 0;
+    bool hasQuerySelection = !string.IsNullOrWhiteSpace(selectedKeyFromQuery);
+
+    Func<merzigo.bms.tennis.Models.Livescore.Livescore, bool> eventTypeFilter = (m) =>
+    {
+        if (!hasVmSelection && !hasQuerySelection) return true;
+        if (Model?.Events == null || Model.Events.Count == 0) return true;
+
+        if (hasVmSelection)
+        {
+            var et = Model.Events.FirstOrDefault(x => x.EventTypeKey == selectedKeyFromVm)?.EventTypeType;
+            return string.IsNullOrEmpty(et) || m.EventTypeType == et;
+        }
+        else
+        {
+            var et = Model.Events.FirstOrDefault(x => x.EventTypeKey.ToString() == selectedKeyFromQuery)?.EventTypeType;
+            return string.IsNullOrEmpty(et) || m.EventTypeType == et;
+        }
+    };
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <!-- Header -->
+            <div class="text-center mb-4">
+                <h1 class="display-5 fw-bold text-primary">
+                    <i class="fas fa-tennis-ball"></i> Tennis Live Matches
+                </h1>
+                <p class="lead text-muted">Canlı tenis maçları ve bahis fırsatları</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="row mb-3">
+                <div class="col-md-4 ms-auto">
+                    <label for="eventFilter" class="form-label">Etkinlik Türü</label>
+                    <select id="eventFilter" class="form-select">
+                        <option value="">Tümü</option>
+                        @if (Model?.Events != null)
+                        {
+                            foreach (var e in Model.Events.DistinctBy(x => x.EventTypeKey).OrderBy(x => x.EventTypeType))
+                            {
+                                var selected = (hasVmSelection && e.EventTypeKey == selectedKeyFromVm) || (hasQuerySelection && e.EventTypeKey.ToString() == selectedKeyFromQuery);
+                                <option value="@e.EventTypeKey" selected="@(selected ? "selected" : null)">@e.EventTypeType</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <ul class="nav nav-pills nav-fill mb-4" id="matchesTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="live-tab" data-bs-toggle="tab" data-bs-target="#live"
+                            type="button" role="tab" aria-controls="live" aria-selected="true">
+                        <i class="fas fa-broadcast-tower text-danger"></i>
+                        Canlı Maçlar
+                        <span class="badge bg-danger ms-1" id="live-count">0</span>
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming"
+                            type="button" role="tab" aria-controls="upcoming" aria-selected="false">
+                        <i class="fas fa-clock text-warning"></i>
+                        Yaklaşan Maçlar
+                        <span class="badge bg-warning text-dark ms-1" id="upcoming-count">0</span>
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="finished-tab" data-bs-toggle="tab" data-bs-target="#finished"
+                            type="button" role="tab" aria-controls="finished" aria-selected="false">
+                        <i class="fas fa-check-circle text-success"></i>
+                        Bitmiş Maçlar
+                        <span class="badge bg-success ms-1" id="finished-count">0</span>
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="matchesTabContent">
+
+                <!-- Live Matches -->
+                <div class="tab-pane fade show active" id="live" role="tabpanel" aria-labelledby="live-tab">
+                    @{
+                        var filteredMatches = allMatches.Where(eventTypeFilter).ToList();
+                        var liveMatches = filteredMatches.Where(m => m.EventLive == "1" || m.EventStatus?.ToLower().Contains("live") == true).ToList();
+                    }
+
+                    @if (liveMatches.Any())
+                    {
+                        <div class="row">
+                            @foreach (var match in liveMatches)
+                            {
+                                <div class="col-lg-6 col-xl-4 mb-4">
+                                    <div class="card h-100 border-danger shadow-sm">
+                                        <div class="card-header bg-danger text-white">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h6 class="mb-0">
+                                                    <i class="fas fa-circle text-warning" style="animation: pulse 1.5s infinite;"></i>
+                                                    CANLI
+                                                </h6>
+                                                <small>@match.EventDate @match.EventTime</small>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- Tournament Info -->
+                                            <div class="text-center mb-3">
+                                                <h6 class="text-primary mb-1">@match.TournamentName</h6>
+                                                <span class="badge bg-info">@match.TournamentRound</span>
+                                            </div>
+
+                                            <!-- Players -->
+                                            <div class="row align-items-center mb-3">
+                                                <div class="col-5 text-center">
+                                                    <div class="player-info">
+                                                        <strong class="d-block">@match.EventFirstPlayer</strong>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2 text-center">
+                                                    <span class="badge bg-primary fs-6">VS</span>
+                                                </div>
+                                                <div class="col-5 text-center">
+                                                    <div class="player-info">
+                                                        <strong class="d-block">@match.EventSecondPlayer</strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Current Set Info -->
+                                            @if (match.Scores != null && match.Scores.Any())
+                                            {
+
+                                                var totalSets = match.Scores.Count();
+                                                var completedSets = match.Scores.Where(s => !string.IsNullOrEmpty(s.ScoreFirst) && !string.IsNullOrEmpty(s.ScoreSecond)).ToList();
+                                                var currentSetNumber = completedSets.Count + 1;
+
+                                                // Eğer 5 setten fazla varsa, muhtemelen data hatası var
+                                                if (currentSetNumber > 5)
+                                                {
+                                                    var maxSetString = match.Scores.Max(s => s.ScoreSet);
+                                                    if (int.TryParse(maxSetString, out int maxSetInt))
+                                                    {
+                                                        currentSetNumber = maxSetInt;
+                                                    }
+                                                }
+
+
+                                                <div class="text-center mb-3">
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <span class="badge bg-danger fs-6 me-2">
+                                                            <i class="fas fa-play-circle"></i> Set @currentSetNumber
+                                                        </span>
+                                                        <small class="text-muted">(@totalSets set kayıtlı)</small>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            <!-- Current Score -->
+                                            @if (!string.IsNullOrEmpty(match.EventGameResult))
+                                            {
+                                                <div class="text-center mb-3">
+                                                    <h5 class="text-primary fw-bold">@match.EventGameResult</h5>
+                                                    <small class="text-muted">Mevcut Oyun Skoru</small>
+                                                </div>
+                                            }
+
+                                            <!-- Set Scores -->
+                                            @if (match.Scores != null && match.Scores.Any())
+                                            {
+                                                <div class="mb-3">
+                                                    <h6 class="text-muted mb-2">Set Skorları:</h6>
+                                                    <div class="set-scores">
+                                                        @{
+                                                            var completedSetsCount = match.Scores.Where(s => !string.IsNullOrEmpty(s.ScoreFirst) && !string.IsNullOrEmpty(s.ScoreSecond)).Count();
+                                                            var actualCurrentSet = (completedSetsCount + 1).ToString();
+                                                        }
+                                                        @foreach (var score in match.Scores.OrderBy(s => s.ScoreSet))
+                                                        {
+                                                            var isCurrentSet = score.ScoreSet == actualCurrentSet;
+                                                            var badgeClass = isCurrentSet ? "bg-warning text-dark" : "bg-light text-dark";
+
+                                                            <span class="badge @badgeClass me-1 mb-1">
+                                                                Set @score.ScoreSet: @score.ScoreFirst-@score.ScoreSecond
+                                                                @if (isCurrentSet)
+                                                                {
+                                                                    <i class="fas fa-play ms-1"></i>
+                                                                }
+                                                            </span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            <!-- Betting Button -->
+                                            <div class="text-center">
+                                                <button class="btn btn-success btn-sm betting-btn"
+                                                        data-match-id="@match.EventKey"
+                                                        data-player1="@match.EventFirstPlayer"
+                                                        data-player1-id="@match.FirstPlayerKey"
+                                                        data-player2="@match.EventSecondPlayer"
+                                                        data-player2-id ="@match.SecondPlayerKey">
+                                                    <i class="fas fa-coins"></i> Bahis Öner
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-5">
+                            <i class="fas fa-tennis-ball fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">Şu anda canlı maç bulunmuyor</h5>
+                            <p class="text-muted">Yaklaşan maçları kontrol edin</p>
+                        </div>
+                    }
+                </div>
+
+                <!-- Upcoming Matches -->
+                <div class="tab-pane fade" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
+                    @{
+                        var filteredUpcoming = allMatches.Where(eventTypeFilter).ToList();
+                        var upcomingMatches = filteredUpcoming.Where(m => m.EventStatus?.ToLower().Contains("not started") == true ||
+                            m.EventStatus?.ToLower().Contains("upcoming") == true ||
+                            m.EventStatus?.ToLower().Contains("scheduled") == true).ToList();
+                    }
+
+                    @if (upcomingMatches.Any())
+                    {
+                        <div class="row">
+                            @foreach (var match in upcomingMatches)
+                            {
+                                <div class="col-lg-6 col-xl-4 mb-4">
+                                    <div class="card h-100 border-warning shadow-sm">
+                                        <div class="card-header bg-warning text-dark">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h6 class="mb-0">
+                                                    <i class="fas fa-clock"></i>
+                                                    YAKLAŞAN
+                                                </h6>
+                                                <small>@match.EventDate @match.EventTime</small>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- Tournament Info -->
+                                            <div class="text-center mb-3">
+                                                <h6 class="text-primary mb-1">@match.TournamentName</h6>
+                                                <span class="badge bg-info">@match.TournamentRound</span>
+                                            </div>
+
+                                            <!-- Players -->
+                                            <div class="row align-items-center mb-3">
+                                                <div class="col-5 text-center">
+                                                    <strong class="d-block">@match.EventFirstPlayer</strong>
+                                                </div>
+                                                <div class="col-2 text-center">
+                                                    <span class="badge bg-warning text-dark fs-6">VS</span>
+                                                </div>
+                                                <div class="col-5 text-center">
+                                                    <strong class="d-block">@match.EventSecondPlayer</strong>
+                                                </div>
+                                            </div>
+
+                                            <!-- Betting Button -->
+                                            <div class="text-center">
+                                                <button class="btn btn-warning btn-sm betting-btn"
+                                                        data-match-id="@match.EventKey"
+                                                        data-player1="@match.EventFirstPlayer"
+                                                        data-player1-id="@match.FirstPlayerKey"
+                                                        data-player2="@match.EventSecondPlayer"
+                                                        data-player2-id="@match.SecondPlayerKey">
+                                                    <i class="fas fa-coins"></i> Bahis Öner
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-5">
+                            <i class="fas fa-calendar-alt fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">Yaklaşan maç bulunmuyor</h5>
+                        </div>
+                    }
+                </div>
+
+                <!-- Finished Matches -->
+                <div class="tab-pane fade" id="finished" role="tabpanel" aria-labelledby="finished-tab">
+                    @{
+                        var filteredFinished = allMatches.Where(eventTypeFilter).ToList();
+                        var finishedMatches = filteredFinished.Where(m => m.EventStatus?.ToLower().Contains("finished") == true ||
+                            m.EventStatus?.ToLower().Contains("ended") == true ||
+                            m.EventStatus?.ToLower().Contains("completed") == true).ToList();
+                    }
+
+                    @if (finishedMatches.Any())
+                    {
+                        <div class="row">
+                            @foreach (var match in finishedMatches.Take(20))
+                            {
+                                <div class="col-lg-6 col-xl-4 mb-4">
+                                    <div class="card h-100 border-success shadow-sm">
+                                        <div class="card-header bg-success text-white">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h6 class="mb-0">
+                                                    <i class="fas fa-check-circle"></i>
+                                                    BİTTİ
+                                                </h6>
+                                                <small>@match.EventDate</small>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- Tournament Info -->
+                                            <div class="text-center mb-3">
+                                                <h6 class="text-primary mb-1">@match.TournamentName</h6>
+                                                <span class="badge bg-info">@match.TournamentRound</span>
+                                            </div>
+
+                                            <!-- Players -->
+                                            <div class="row align-items-center mb-3">
+                                                <div class="col-5 text-center">
+                                                    <strong class="d-block">@match.EventFirstPlayer</strong>
+                                                </div>
+                                                <div class="col-2 text-center">
+                                                    <span class="badge bg-success fs-6">VS</span>
+                                                </div>
+                                                <div class="col-5 text-center">
+                                                    <strong class="d-block">@match.EventSecondPlayer</strong>
+                                                </div>
+                                            </div>
+
+                                            <!-- Final Result -->
+                                            @if (!string.IsNullOrEmpty(match.EventFinalResult))
+                                            {
+                                                <div class="text-center mb-3">
+                                                    <h6 class="text-success fw-bold">@match.EventFinalResult</h6>
+                                                </div>
+                                            }
+
+                                            <!-- Winner -->
+                                            @if (!string.IsNullOrEmpty(match.EventWinner))
+                                            {
+                                                <div class="text-center mb-3">
+                                                    <span class="badge bg-warning text-dark">
+                                                        <i class="fas fa-trophy"></i> Kazanan: @match.EventWinner
+                                                    </span>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-5">
+                            <i class="fas fa-check-circle fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">Bitmiş maç bulunmuyor</h5>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @@keyframes pulse {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .card {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+        }
+
+    .set-scores {
+        line-height: 1.6;
+    }
+
+        .set-scores .badge {
+            font-size: 0.75em;
+            padding: 0.25em 0.5em;
+        }
+
+    .betting-btn {
+        transition: all 0.3s ease;
+    }
+
+        .betting-btn:hover {
+            transform: scale(1.05);
+        }
+
+    .nav-pills .nav-link {
+        border-radius: 25px;
+        margin: 0 5px;
+    }
+
+        .nav-pills .nav-link.active {
+            background-color: #0d6efd;
+        }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            const updateCounts = () => {
+                const liveCount = $('#live .card').length;
+                const upcomingCount = $('#upcoming .card').length;
+                const finishedCount = $('#finished .card').length;
+                $('#live-count').text(liveCount);
+                $('#upcoming-count').text(upcomingCount);
+                $('#finished-count').text(finishedCount);
+            };
+
+            // Initial counts
+            updateCounts();
+
+            // Filter change
+            $('#eventFilter').on('change', function() {
+                const key = $(this).val();
+                const query = key ? `?eventTypeKey=${key}` : '';
+                window.location.href = window.location.pathname + query;
+            });
+
+            // Betting button click: navigate to SuggestOdd view instead of AJAX
+            $('.betting-btn').click(function() {
+                var matchId = $(this).data('match-id');
+                var player1 = encodeURIComponent($(this).data('player1'));
+                var player1Id = $(this).data('player1-id');
+                var player2 = encodeURIComponent($(this).data('player2'));
+                var player2Id = $(this).data('player2-id');
+                var url = `/OddSuggestion/SuggestOdd?matchId=${matchId}&player1=${player1}&player2=${player2}&player1Id=${player1Id}&player2Id=${player2Id}`;
+                window.location.href = url;
+            });
+
+            // Auto-refresh for live matches
+            setInterval(function() {
+                if ($('#live-tab').hasClass('active')) {
+                    console.log('Refreshing live matches...');
+                    // You can add AJAX call here to refresh live data
+                }
+            }, 30000);
+        });
+    </script>
+}
