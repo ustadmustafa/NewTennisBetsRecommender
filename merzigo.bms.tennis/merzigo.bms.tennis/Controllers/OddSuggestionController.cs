@@ -58,6 +58,17 @@ namespace merzigo.bms.tennis.Controllers
 
             return View(vm);
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SuggestOdd()
+        {
+
+            return View();
+        }
+
+
+
         public IActionResult Index()
         {
             return View();
