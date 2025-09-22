@@ -14,6 +14,212 @@
         </div>
     </div>
 
+    <!-- Player Stats Panel -->
+    <div class="row mb-3">
+        <div class="col-lg-6 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-secondary text-white">
+                    <strong>@(Model?.Player1Name ?? "Oyuncu 1") - Profil ve İstatistikler</strong>
+                </div>
+                <div class="card-body">
+                    @if (Model?.Player1 != null)
+                    {
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="@Model.Player1.PlayerLogo" alt="logo" class="me-3" style="width:48px;height:48px;object-fit:contain;" onerror="this.style.display='none'" />
+                            <div>
+                                <div class="fw-semibold">@Model.Player1.PlayerName (@Model.Player1.PlayerCountry)</div>
+                                <div class="text-muted small">Doğum: @Model.Player1.PlayerBday</div>
+                            </div>
+                        </div>
+                        @if (Model.Player1.Stats != null && Model.Player1.Stats.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Sezon</th>
+                                            <th>Tür</th>
+                                            <th>Sıra</th>
+                                            <th>Şamp.</th>
+                                            <th>G/M</th>
+                                            <th>Hard</th>
+                                            <th>Clay</th>
+                                            <th>Grass</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var s in Model.Player1.Stats.OrderByDescending(x => x.Season))
+                                        {
+                                            <tr>
+                                                <td><small>@s.Season</small></td>
+                                                <td><small>@s.Type</small></td>
+                                                <td><small>@s.Rank</small></td>
+                                                <td><small>@s.Titles</small></td>
+                                                <td><small>@s.MatchesWon / @s.MatchesLost</small></td>
+                                                <td><small>@s.HardWon / @s.HardLost</small></td>
+                                                <td><small>@s.ClayWon / @s.ClayLost</small></td>
+                                                <td><small>@s.GrassWon / @s.GrassLost</small></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-muted">İstatistik bulunamadı.</div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-muted">Oyuncu verisi bulunamadı.</div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-secondary text-white">
+                    <strong>@(Model?.Player2Name ?? "Oyuncu 2") - Profil ve İstatistikler</strong>
+                </div>
+                <div class="card-body">
+                    @if (Model?.Player2 != null)
+                    {
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="@Model.Player2.PlayerLogo" alt="logo" class="me-3" style="width:48px;height:48px;object-fit:contain;" onerror="this.style.display='none'" />
+                            <div>
+                                <div class="fw-semibold">@Model.Player2.PlayerName (@Model.Player2.PlayerCountry)</div>
+                                <div class="text-muted small">Doğum: @Model.Player2.PlayerBday</div>
+                            </div>
+                        </div>
+                        @if (Model.Player2.Stats != null && Model.Player2.Stats.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Sezon</th>
+                                            <th>Tür</th>
+                                            <th>Sıra</th>
+                                            <th>Şamp.</th>
+                                            <th>G/M</th>
+                                            <th>Hard</th>
+                                            <th>Clay</th>
+                                            <th>Grass</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var s in Model.Player2.Stats.OrderByDescending(x => x.Season))
+                                        {
+                                            <tr>
+                                                <td><small>@s.Season</small></td>
+                                                <td><small>@s.Type</small></td>
+                                                <td><small>@s.Rank</small></td>
+                                                <td><small>@s.Titles</small></td>
+                                                <td><small>@s.MatchesWon / @s.MatchesLost</small></td>
+                                                <td><small>@s.HardWon / @s.HardLost</small></td>
+                                                <td><small>@s.ClayWon / @s.ClayLost</small></td>
+                                                <td><small>@s.GrassWon / @s.GrassLost</small></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-muted">İstatistik bulunamadı.</div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-muted">Oyuncu verisi bulunamadı.</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Standings Panel -->
+    <div class="row mb-3">
+        <div class="col-lg-6 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-info text-white">
+                    <strong>@(Model?.Player1Name ?? "Oyuncu 1") - Sıralama</strong>
+                </div>
+                <div class="card-body">
+                    @if (Model?.Player1Standing != null)
+                    {
+                        <div class="row g-2 small">
+                            <div class="col-6">
+                                <div class="text-muted">Tur</div>
+                                <div class="fw-semibold">@Model.Player1Standing.league</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-muted">Sıra</div>
+                                <div class="fw-semibold">@Model.Player1Standing.place</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-muted">Puan</div>
+                                <div class="fw-semibold">@Model.Player1Standing.points</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-muted">Ülke</div>
+                                <div class="fw-semibold">@Model.Player1Standing.country</div>
+                            </div>
+                            <div class="col-12">
+                                <div class="text-muted">Hareket</div>
+                                <div class="fw-semibold">@Model.Player1Standing.movement</div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-muted">Sıralama bulunamadı.</div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-info text-white">
+                    <strong>@(Model?.Player2Name ?? "Oyuncu 2") - Sıralama</strong>
+                </div>
+                <div class="card-body">
+                    @if (Model?.Player2Standing != null)
+                    {
+                        <div class="row g-2 small">
+                            <div class="col-6">
+                                <div class="text-muted">Tur</div>
+                                <div class="fw-semibold">@Model.Player2Standing.league</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-muted">Sıra</div>
+                                <div class="fw-semibold">@Model.Player2Standing.place</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-muted">Puan</div>
+                                <div class="fw-semibold">@Model.Player2Standing.points</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-muted">Ülke</div>
+                                <div class="fw-semibold">@Model.Player2Standing.country</div>
+                            </div>
+                            <div class="col-12">
+                                <div class="text-muted">Hareket</div>
+                                <div class="fw-semibold">@Model.Player2Standing.movement</div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-muted">Sıralama bulunamadı.</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-lg-6 mb-4">
             <div class="card shadow-sm h-100">
@@ -238,6 +444,188 @@
             </div>
         </div>
     </div>
+
+    <!-- Odds Panel -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning">
+                    <strong>Maç Oranları</strong>
+                </div>
+                <div class="card-body">
+                    @if (Model?.Odds != null && Model.Odds.Result != null && Model.Odds.Result.Any())
+                    {
+                        var firstBook = Model.Odds.Result.First();
+                        var matchOdds = firstBook.Value;
+                        <div class="row g-3">
+                            <div class="col-lg-6">
+                                <h6>Maç Kazananı (Home/Away)</h6>
+                                @if (matchOdds.HomeAway != null)
+                                {
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-striped align-middle mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Bahis</th>
+                                                    <th>Oran</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (System.Collections.Generic.KeyValuePair<string, string> kv in matchOdds.HomeAway.Home)
+                                                {
+                                                    <tr>
+                                                        <td><small>Home - @kv.Key</small></td>
+                                                        <td><small>@kv.Value</small></td>
+                                                    </tr>
+                                                }
+                                                @foreach (System.Collections.Generic.KeyValuePair<string, string> kv in matchOdds.HomeAway.Away)
+                                                {
+                                                    <tr>
+                                                        <td><small>Away - @kv.Key</small></td>
+                                                        <td><small>@kv.Value</small></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="text-muted">Home/Away oranı bulunamadı.</div>
+                                }
+                            </div>
+                            <div class="col-lg-6">
+                                <h6>İlk Set Kazananı (Home/Away)</h6>
+                                @if (matchOdds.HomeAwayFirstSet != null)
+                                {
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-striped align-middle mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Bahis</th>
+                                                    <th>Oran</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (System.Collections.Generic.KeyValuePair<string, string> kv in matchOdds.HomeAwayFirstSet.Home)
+                                                {
+                                                    <tr>
+                                                        <td><small>Home - @kv.Key</small></td>
+                                                        <td><small>@kv.Value</small></td>
+                                                    </tr>
+                                                }
+                                                @foreach (System.Collections.Generic.KeyValuePair<string, string> kv in matchOdds.HomeAwayFirstSet.Away)
+                                                {
+                                                    <tr>
+                                                        <td><small>Away - @kv.Key</small></td>
+                                                        <td><small>@kv.Value</small></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="text-muted">İlk set oranı bulunamadı.</div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mt-2">
+                            <div class="col-12">
+                                <h6>Set Bahisleri</h6>
+                                @if (matchOdds.SetBetting != null && matchOdds.SetBetting.Any())
+                                {
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-striped align-middle mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Pazar</th>
+                                                    <th>Seçenek</th>
+                                                    <th>Oran</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (System.Collections.Generic.KeyValuePair<string, System.Collections.Generic.Dictionary<string, string>> market in matchOdds.SetBetting)
+                                                {
+                                                    foreach (System.Collections.Generic.KeyValuePair<string, string> option in market.Value)
+                                                    {
+                                                        <tr>
+                                                            <td><small>@market.Key</small></td>
+                                                            <td><small>@option.Key</small></td>
+                                                            <td><small>@option.Value</small></td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="text-muted">Set bahis oranı bulunamadı.</div>
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-muted">Maç oranı verisi bulunamadı.</div>
+                    }
+
+                    <hr />
+
+                    <h6>Canlı Oranlar</h6>
+                    @if (Model?.LiveOdds != null && Model.LiveOdds.Result != null && Model.LiveOdds.Result.Any())
+                    {
+                        var firstLive = Model.LiveOdds.Result.First();
+                        var liveDetail = firstLive.Value;
+                        @* Render available live odds list *@
+                        @if (liveDetail.LiveOdds != null && liveDetail.LiveOdds.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Bahis</th>
+                                            <th>Tür</th>
+                                            <th>Değer</th>
+                                            <th>Handicap</th>
+                                            <th>Durum</th>
+                                            <th>Güncelleme</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var lo in liveDetail.LiveOdds)
+                                        {
+                                            <tr>
+                                                <td><small>@lo.OddName</small></td>
+                                                <td><small>@lo.Type</small></td>
+                                                <td><small>@lo.Value</small></td>
+                                                <td><small>@lo.Handicap</small></td>
+                                                <td><small>@lo.Suspended</small></td>
+                                                <td><small>@lo.Updated</small></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-muted">Canlı oran bulunamadı.</div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-muted">Canlı oran verisi bulunamadı.</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 @functions {

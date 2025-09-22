@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|solutionrelative:merzigo.bms.tennis\\controllers\\oddsuggestioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|c:\\users\\mustafa.albayrak\\desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\views\\oddsuggestion\\suggestodd.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|solutionrelative:merzigo.bms.tennis\\views\\oddsuggestion\\suggestodd.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|c:\\users\\mustafa.albayrak\\desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|solutionrelative:merzigo.bms.tennis\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -15,20 +19,20 @@
       "RelativeMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|solutionrelative:merzigo.bms.tennis\\models\\oddsuggestionviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|c:\\users\\mustafa.albayrak\\desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\models\\standings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|solutionrelative:merzigo.bms.tennis\\models\\standings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|c:\\users\\mustafa.albayrak\\desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|solutionrelative:merzigo.bms.tennis\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|c:\\users\\mustafa.albayrak\\desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\models\\homeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|solutionrelative:merzigo.bms.tennis\\models\\homeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|c:\\users\\mustafa.albayrak\\desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\models\\h2h.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|solutionrelative:merzigo.bms.tennis\\models\\h2h.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|c:\\users\\mustafa.albayrak\\desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\views\\oddsuggestion\\suggestodd.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|solutionrelative:merzigo.bms.tennis\\views\\oddsuggestion\\suggestodd.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|c:\\users\\mustafa.albayrak\\desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|solutionrelative:merzigo.bms.tennis\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|c:\\users\\mustafa.albayrak\\desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -72,27 +76,14 @@
               "RelativeDocumentMoniker": "merzigo.bms.tennis\\Controllers\\OddSuggestionController.cs",
               "ToolTip": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Controllers\\OddSuggestionController.cs",
               "RelativeToolTip": "merzigo.bms.tennis\\Controllers\\OddSuggestionController.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAcwCkAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-22T08:03:34.035Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "H2H.cs",
-              "DocumentMoniker": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Models\\H2H.cs",
-              "RelativeDocumentMoniker": "merzigo.bms.tennis\\Models\\H2H.cs",
-              "ToolTip": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Models\\H2H.cs",
-              "RelativeToolTip": "merzigo.bms.tennis\\Models\\H2H.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-22T11:35:47.516Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "HomeViewModel.cs",
               "DocumentMoniker": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Models\\HomeViewModel.cs",
               "RelativeDocumentMoniker": "merzigo.bms.tennis\\Models\\HomeViewModel.cs",
@@ -100,64 +91,88 @@
               "RelativeToolTip": "merzigo.bms.tennis\\Models\\HomeViewModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-22T09:54:55.55Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-22T09:54:55.55Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
+              "Title": "H2H.cs",
+              "DocumentMoniker": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Models\\H2H.cs",
+              "RelativeDocumentMoniker": "merzigo.bms.tennis\\Models\\H2H.cs",
+              "ToolTip": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Models\\H2H.cs",
+              "RelativeToolTip": "merzigo.bms.tennis\\Models\\H2H.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T11:35:47.516Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "OddSuggestionViewModel.cs",
               "DocumentMoniker": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Models\\OddSuggestionViewModel.cs",
               "RelativeDocumentMoniker": "merzigo.bms.tennis\\Models\\OddSuggestionViewModel.cs",
               "ToolTip": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Models\\OddSuggestionViewModel.cs",
               "RelativeToolTip": "merzigo.bms.tennis\\Models\\OddSuggestionViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-22T09:54:28.777Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "SuggestOdd.cshtml",
               "DocumentMoniker": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Views\\OddSuggestion\\SuggestOdd.cshtml",
               "RelativeDocumentMoniker": "merzigo.bms.tennis\\Views\\OddSuggestion\\SuggestOdd.cshtml",
               "ToolTip": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Views\\OddSuggestion\\SuggestOdd.cshtml",
               "RelativeToolTip": "merzigo.bms.tennis\\Views\\OddSuggestion\\SuggestOdd.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAABUCAAAAAAAAAAAmwCUCAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-09-22T09:52:12.807Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "merzigo.bms.tennis\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "merzigo.bms.tennis\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAQwBcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T07:34:20.503Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ApiService.cs",
               "DocumentMoniker": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Services\\ApiService.cs",
               "RelativeDocumentMoniker": "merzigo.bms.tennis\\Services\\ApiService.cs",
               "ToolTip": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Services\\ApiService.cs",
               "RelativeToolTip": "merzigo.bms.tennis\\Services\\ApiService.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAYwE4AAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAowBwAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-22T10:03:01.393Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 4,
+              "Title": "Standings.cs",
+              "DocumentMoniker": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Models\\Standings.cs",
+              "RelativeDocumentMoniker": "merzigo.bms.tennis\\Models\\Standings.cs",
+              "ToolTip": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Models\\Standings.cs",
+              "RelativeToolTip": "merzigo.bms.tennis\\Models\\Standings.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T12:16:48.777Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "merzigo.bms.tennis\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "merzigo.bms.tennis\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T07:34:20.503Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\mustafa.albayrak\\Desktop\\thenewbetsapi\\merzigo.bms.tennis\\merzigo.bms.tennis\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "merzigo.bms.tennis\\Views\\Home\\Index.cshtml",
@@ -165,8 +180,7 @@
               "RelativeToolTip": "merzigo.bms.tennis\\Views\\Home\\Index.cshtml",
               "ViewState": "AgIAAMEBAAAAAAAAAAAMwM4BAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-22T10:05:16.446Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-22T10:05:16.446Z"
             }
           ]
         }
