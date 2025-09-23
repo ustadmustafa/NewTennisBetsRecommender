@@ -666,6 +666,22 @@
         </div>
     </div>
 
+    <div class="row mt-4">
+        <div class="col-12 text-end">
+            @{ 
+                var matchIdQuery = Context.Request.Query["matchId"]; 
+                double s1 = 0.0; 
+                double s2 = 0.0; 
+                if (int.TryParse(Model?.Player1Standing?.place, out var rank1) && rank1 > 0) { s1 = 1.0 / rank1; }
+                if (int.TryParse(Model?.Player2Standing?.place, out var rank2) && rank2 > 0) { s2 = 1.0 / rank2; }
+            }
+            <a class="btn btn-primary"
+               href="@Url.Action("CalculateOdds", "OddSuggestion", new { matchId = matchIdQuery.ToString(), player1 = Model?.Player1Name, player2 = Model?.Player2Name, player1Id = Model?.Player1Id, player2Id = Model?.Player2Id, s_player1 = s1, s_player2 = s2 })">
+                <i class="fas fa-calculator"></i> Calculate Odds
+            </a>
+        </div>
+    </div>
+
 </div>
 
 @functions {

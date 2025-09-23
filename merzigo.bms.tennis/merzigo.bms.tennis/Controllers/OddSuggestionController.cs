@@ -73,5 +73,22 @@ namespace merzigo.bms.tennis.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult CalculateOdds(long matchId, string player1, string player2, long player1Id, long player2Id, double? s_player1 = null, double? s_player2 = null)
+        {
+            double? p_base = 0; 
+            if (s_player1 > s_player2)
+            {
+                p_base = s_player1 / (s_player1 + s_player2);
+            }
+            else
+            {
+                p_base = s_player2 / (s_player1 + s_player2);
+            }
+
+
+             return RedirectToAction(nameof(SuggestOdd), new { matchId, player1, player2, player1Id, player2Id, s_player1, s_player2 });
+        }
     }
 }

@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\mustafa.albayrak\\Desktop\\yenirepo\\NewTennisBetsRecommender\\merzigo.bms.tennis\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|c:\\users\\mustafa.albayrak\\desktop\\yenirepo\\newtennisbetsrecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|solutionrelative:merzigo.bms.tennis\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|c:\\users\\mustafa.albayrak\\desktop\\yenirepo\\newtennisbetsrecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\controllers\\oddsuggestioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|solutionrelative:merzigo.bms.tennis\\controllers\\oddsuggestioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|c:\\users\\mustafa.albayrak\\desktop\\yenirepo\\newtennisbetsrecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|solutionrelative:merzigo.bms.tennis\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B10FF7EE-14D4-4C80-816C-C83C6A5AD4EE}|merzigo.bms.tennis\\merzigo.bms.tennis.csproj|c:\\users\\mustafa.albayrak\\desktop\\yenirepo\\newtennisbetsrecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -46,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Bookmark",
@@ -102,12 +102,11 @@
               "RelativeToolTip": "merzigo.bms.tennis\\Views\\OddSuggestion\\SuggestOdd.cshtml",
               "ViewState": "AgIAAD0CAAAAAAAAAAAmwE0CAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-22T09:52:12.807Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-22T09:52:12.807Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ApiService.cs",
               "DocumentMoniker": "C:\\Users\\mustafa.albayrak\\Desktop\\yenirepo\\NewTennisBetsRecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\Services\\ApiService.cs",
               "RelativeDocumentMoniker": "merzigo.bms.tennis\\Services\\ApiService.cs",
@@ -138,7 +137,7 @@
               "RelativeDocumentMoniker": "merzigo.bms.tennis\\Controllers\\HomeController.cs",
               "ToolTip": "C:\\Users\\mustafa.albayrak\\Desktop\\yenirepo\\NewTennisBetsRecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\Controllers\\HomeController.cs",
               "RelativeToolTip": "merzigo.bms.tennis\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAowBgAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAowBEAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-19T07:34:20.503Z",
               "EditorCaption": ""
@@ -157,13 +156,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "OddSuggestionController.cs",
               "DocumentMoniker": "C:\\Users\\mustafa.albayrak\\Desktop\\yenirepo\\NewTennisBetsRecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\Controllers\\OddSuggestionController.cs",
               "RelativeDocumentMoniker": "merzigo.bms.tennis\\Controllers\\OddSuggestionController.cs",
               "ToolTip": "C:\\Users\\mustafa.albayrak\\Desktop\\yenirepo\\NewTennisBetsRecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\Controllers\\OddSuggestionController.cs",
               "RelativeToolTip": "merzigo.bms.tennis\\Controllers\\OddSuggestionController.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAowCYAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAgwFkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-22T08:03:34.035Z",
               "EditorCaption": ""
