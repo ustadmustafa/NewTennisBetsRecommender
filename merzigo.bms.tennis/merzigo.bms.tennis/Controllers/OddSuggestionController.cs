@@ -89,23 +89,22 @@ namespace merzigo.bms.tennis.Controllers
                 if (h2h_winner == player1Id)
                 {
                     p_base += 0.05; // H2H galibiyeti varsa %5 ekle
-                    if (player1_winrate > player2_winrate)
-                    {
-                        winrate_diff = player1_winrate - player2_winrate;
-                        winrate_diff = winrate_diff / 10;
-                    }
-                    p_base += winrate_diff;
-                    odd_prob = p_base;
-                    p_set = CalculateSetProbability(p_base);
-                    var p_2_0 = p_set * p_set;
-                    var p_2_1 = 2 * p_set * p_set * (1 - p_set);
-                    var p_0_2 = (1 - p_set) * (1 - p_set);
-                    var p_1_2 = 2 * (1 - p_set) * (1 - p_set) * p_set;
-
-                    Console.WriteLine($"{p_base} ihtimalle {player1} kazanma oranları:  P(2-0): {p_2_0}, P(2-1): {p_2_1}"); // Örnek çıktı
-
-
                 }
+
+                if (player1_winrate > player2_winrate)
+                {
+                    winrate_diff = player1_winrate - player2_winrate;
+                    winrate_diff = winrate_diff / 10;
+                }
+                p_base += winrate_diff;
+                odd_prob = p_base;
+                p_set = CalculateSetProbability(p_base);
+                var p_2_0 = p_set * p_set;
+                var p_2_1 = 2 * p_set * p_set * (1 - p_set);
+                var p_0_2 = (1 - p_set) * (1 - p_set);
+                var p_1_2 = 2 * (1 - p_set) * (1 - p_set) * p_set;
+
+                Console.WriteLine($"{p_base} ihtimalle {player1} kazanma oranları:  P(2-0): {p_2_0}, P(2-1): {p_2_1}"); // Örnek çıktı
             }
             else
             {
@@ -113,25 +112,46 @@ namespace merzigo.bms.tennis.Controllers
                 if (h2h_winner == player2Id)
                 {
                     p_base += 0.05; // H2H galibiyeti varsa %5 ekle
-                    if (player2_winrate > player1_winrate)
-                    {
-                        winrate_diff = player2_winrate - player1_winrate;
-                        winrate_diff = winrate_diff / 10;
-                    }
-                    p_base += winrate_diff;
-                    odd_prob = p_base;
-                    p_set = CalculateSetProbability(p_base);
-                    var p_2_0 = p_set * p_set;
-                    var p_2_1 = 2 * p_set * p_set * (1 - p_set);
-                    var p_0_2 = (1 - p_set) * (1 - p_set);
-                    var p_1_2 = 2 * (1 - p_set) * (1 - p_set) * p_set;
-
-                    Console.WriteLine($"{p_base} ihtimalle {player2} kazanma oranları:P(2-0): {p_2_0}, P(2-1): {p_2_1}"); // Örnek çıktı
-
                 }
+
+                if (player2_winrate > player1_winrate)
+                {
+                    winrate_diff = player2_winrate - player1_winrate;
+                    winrate_diff = winrate_diff / 10;
+                }
+                p_base += winrate_diff;
+                odd_prob = p_base;
+                p_set = CalculateSetProbability(p_base);
+                var p_2_0 = p_set * p_set;
+                var p_2_1 = 2 * p_set * p_set * (1 - p_set);
+                var p_0_2 = (1 - p_set) * (1 - p_set);
+                var p_1_2 = 2 * (1 - p_set) * (1 - p_set) * p_set;
+
+                Console.WriteLine($"{p_base} ihtimalle {player2} kazanma oranları:P(2-0): {p_2_0}, P(2-1): {p_2_1}"); // Örnek çıktı
             }
-            
-            return View();
+
+            var vm = new CalculateOddsViewModel
+            {
+                MatchId = matchId,
+                Player1Name = player1,
+                Player2Name = player2,
+                Player1Id = player1Id,
+                Player2Id = player2Id,
+                SPlayer1 = s_player1,
+                SPlayer2 = s_player2,
+                Player1Winrate = player1_winrate,
+                Player2Winrate = player2_winrate,
+                H2HWinner = h2h_winner,
+                FavoredPlayerId = (s_player1 >= s_player2 ? player1Id : player2Id),
+                BaseMatchProbability = odd_prob,
+                SetProbability = p_set,
+                Probability_2_0 = p_set.HasValue ? p_set * p_set : null,
+                Probability_2_1 = p_set.HasValue ? 2 * p_set * p_set * (1 - p_set) : null,
+                Probability_0_2 = p_set.HasValue ? (1 - p_set) * (1 - p_set) : null,
+                Probability_1_2 = p_set.HasValue ? 2 * (1 - p_set) * (1 - p_set) * p_set : null,
+            };
+
+            return View(vm);
         }
 
         private double CalculateSetProbability(double? p_match, double tolerance = 1e-6)

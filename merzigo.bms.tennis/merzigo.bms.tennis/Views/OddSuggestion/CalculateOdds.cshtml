@@ -1,4 +1,69 @@
-﻿@*
+﻿@model merzigo.bms.tennis.Models.CalculateOddsViewModel
+@{
+    ViewData["Title"] = "Calculated Odds";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-3">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <h2 class="mb-0"><i class="fas fa-calculator"></i> Hesaplanan Oranlar</h2>
+            <a class="btn btn-outline-secondary btn-sm" href="javascript:history.back()">
+                <i class="fas fa-arrow-left"></i> Geri
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-3">
+        <div class="card-header bg-primary text-white">
+            <strong>Maç Bilgisi</strong>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-3"><div class="text-muted">Match ID</div><div class="fw-semibold">@Model.MatchId</div></div>
+                <div class="col-md-4"><div class="text-muted">Oyuncu 1</div><div class="fw-semibold">@Model.Player1Name (@Model.Player1Id)</div></div>
+                <div class="col-md-4"><div class="text-muted">Oyuncu 2</div><div class="fw-semibold">@Model.Player2Name (@Model.Player2Id)</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-3">
+        <div class="card-header bg-info text-white">
+            <strong>Girdi Parametreleri</strong>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-3"><div class="text-muted">s_player1</div><div class="fw-semibold">@Model.SPlayer1</div></div>
+                <div class="col-md-3"><div class="text-muted">s_player2</div><div class="fw-semibold">@Model.SPlayer2</div></div>
+                <div class="col-md-3"><div class="text-muted">player1_winrate</div><div class="fw-semibold">@Model.Player1Winrate</div></div>
+                <div class="col-md-3"><div class="text-muted">player2_winrate</div><div class="fw-semibold">@Model.Player2Winrate</div></div>
+                <div class="col-md-3"><div class="text-muted">h2h_winner</div><div class="fw-semibold">@Model.H2HWinner</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <strong>Hesaplanan Sonuçlar</strong>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-4"><div class="text-muted">Favori Oyuncu ID</div><div class="fw-semibold">@Model.FavoredPlayerId</div></div>
+                <div class="col-md-4"><div class="text-muted">Maç Baz Olasılığı</div><div class="fw-semibold">@Model.BaseMatchProbability</div></div>
+                <div class="col-md-4"><div class="text-muted">Set Olasılığı</div><div class="fw-semibold">@Model.SetProbability</div></div>
+            </div>
+            <hr />
+            <div class="row g-3">
+                <div class="col-md-3"><div class="text-muted">P(2-0)</div><div class="fw-semibold">@Model.Probability_2_0</div></div>
+                <div class="col-md-3"><div class="text-muted">P(2-1)</div><div class="fw-semibold">@Model.Probability_2_1</div></div>
+                <div class="col-md-3"><div class="text-muted">P(0-2)</div><div class="fw-semibold">@Model.Probability_0_2</div></div>
+                <div class="col-md-3"><div class="text-muted">P(1-2)</div><div class="fw-semibold">@Model.Probability_1_2</div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
