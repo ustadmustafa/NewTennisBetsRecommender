@@ -130,6 +130,10 @@ namespace merzigo.bms.tennis.Controllers
                 Console.WriteLine($"{p_base} ihtimalle {player2} kazanma oranları:P(2-0): {p_2_0}, P(2-1): {p_2_1}"); // Örnek çıktı
             }
 
+            // Optionally fetch odds to show on results page
+            var odds = _apiService.GetOdds(matchId);
+            var liveOdds = _apiService.GetLiveOdds(matchKey: matchId);
+
             var vm = new CalculateOddsViewModel
             {
                 MatchId = matchId,
@@ -149,6 +153,8 @@ namespace merzigo.bms.tennis.Controllers
                 Probability_2_1 = p_set.HasValue ? 2 * p_set * p_set * (1 - p_set) : null,
                 Probability_0_2 = p_set.HasValue ? (1 - p_set) * (1 - p_set) : null,
                 Probability_1_2 = p_set.HasValue ? 2 * (1 - p_set) * (1 - p_set) * p_set : null,
+                Odds = odds?.Result,
+                LiveOdds = liveOdds?.Result,
             };
 
             return View(vm);

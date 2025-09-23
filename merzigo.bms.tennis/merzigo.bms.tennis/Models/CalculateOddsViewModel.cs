@@ -21,6 +21,9 @@ namespace merzigo.bms.tennis.Models
         public double? Probability_2_1 { get; set; }
         public double? Probability_0_2 { get; set; }
         public double? Probability_1_2 { get; set; }
+
+        public merzigo.bms.tennis.Models.Odds.OddsResponse? Odds { get; set; }
+        public merzigo.bms.tennis.Models.Odds.LiveOddsResponse? LiveOdds { get; set; }
     }
 }
 
