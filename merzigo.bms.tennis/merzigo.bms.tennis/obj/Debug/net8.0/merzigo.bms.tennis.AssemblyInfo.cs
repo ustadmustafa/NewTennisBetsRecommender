@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("merzigo.bms.tennis")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+90b97c3cba944c2a987bb0fe8909898dd972b684")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f08a9d169a6719a54fb0a5db958f6f6d76a1f8c9")]
 [assembly: System.Reflection.AssemblyProductAttribute("merzigo.bms.tennis")]
 [assembly: System.Reflection.AssemblyTitleAttribute("merzigo.bms.tennis")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

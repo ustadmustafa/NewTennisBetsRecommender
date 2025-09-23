@@ -79,7 +79,10 @@ namespace merzigo.bms.tennis.Controllers
         {
             double? p_base = 0;
             double? winrate_diff = 0;
-           
+            double? odd_prob = 0;
+            double? p_set = 0;
+
+
             if (s_player1 > s_player2)
             {
                 p_base = s_player1 / (s_player1 + s_player2);
@@ -92,6 +95,16 @@ namespace merzigo.bms.tennis.Controllers
                         winrate_diff = winrate_diff / 10;
                     }
                     p_base += winrate_diff;
+                    odd_prob = p_base;
+                    p_set = CalculateSetProbability(p_base);
+                    var p_2_0 = p_set * p_set;
+                    var p_2_1 = 2 * p_set * p_set * (1 - p_set);
+                    var p_0_2 = (1 - p_set) * (1 - p_set);
+                    var p_1_2 = 2 * (1 - p_set) * (1 - p_set) * p_set;
+
+                    Console.WriteLine($"{p_base} ihtimalle {player1} kazanma oranları:  P(2-0): {p_2_0}, P(2-1): {p_2_1}"); // Örnek çıktı
+
+
                 }
             }
             else
@@ -106,12 +119,43 @@ namespace merzigo.bms.tennis.Controllers
                         winrate_diff = winrate_diff / 10;
                     }
                     p_base += winrate_diff;
+                    odd_prob = p_base;
+                    p_set = CalculateSetProbability(p_base);
+                    var p_2_0 = p_set * p_set;
+                    var p_2_1 = 2 * p_set * p_set * (1 - p_set);
+                    var p_0_2 = (1 - p_set) * (1 - p_set);
+                    var p_1_2 = 2 * (1 - p_set) * (1 - p_set) * p_set;
+
+                    Console.WriteLine($"{p_base} ihtimalle {player2} kazanma oranları:P(2-0): {p_2_0}, P(2-1): {p_2_1}"); // Örnek çıktı
 
                 }
             }
+            
+            return View();
+        }
 
+        private double CalculateSetProbability(double? p_match, double tolerance = 1e-6)
+        {
+            double low = 0.0;
+            double high = 1.0;
+            double mid = 0.0;
 
-            return RedirectToAction(nameof(SuggestOdd), new { matchId, player1, player2, player1Id, player2Id, s_player1, s_player2, player1_winrate, player2_winrate, h2h_winner });
+            while (high - low > tolerance)
+            {
+                mid = (low + high) / 2.0;
+                double f_mid = Math.Pow(mid, 2) * (3 - 2 * mid); // p_match formula
+
+                if (f_mid < p_match)
+                    low = mid;
+                else
+                    high = mid;
+            }
+
+            return (low + high) / 2.0; // yaklaşık p_set
         }
     }
+
+
 }
+
+
