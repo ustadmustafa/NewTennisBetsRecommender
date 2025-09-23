@@ -350,17 +350,23 @@
                                             <thead class="table-light">
                                                 <tr>
                                                     <th>Tarih</th>
-                                                    <th>Turnuva</th>
+                                                    <th>Oyuncu 1</th>
+                                                    <th>Oyuncu 2</th>
                                                     <th>Skor</th>
+                                                    <th>Kazanan</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach (var m in Model.H2H.H2H.OrderByDescending(x => x.EventDate).ThenByDescending(x => x.EventTime))
                                                 {
+                                                    var winnerText = (m.EventWinner ?? string.Empty).ToLowerInvariant();
+                                                    var winnerName = winnerText.Contains("first") ? m.EventFirstPlayer : winnerText.Contains("second") ? m.EventSecondPlayer : "-";
                                                     <tr>
                                                         <td><small>@m.EventDate @m.EventTime</small></td>
-                                                        <td><small>@m.TournamentName</small></td>
+                                                        <td><small>@m.EventFirstPlayer</small></td>
+                                                        <td><small>@m.EventSecondPlayer</small></td>
                                                         <td><small>@(string.IsNullOrWhiteSpace(m.EventFinalResult) ? m.EventGameResult : m.EventFinalResult)</small></td>
+                                                        <td><small>@winnerName</small></td>
                                                     </tr>
                                                 }
                                             </tbody>
@@ -381,17 +387,34 @@
                                             <thead class="table-light">
                                                 <tr>
                                                     <th>Tarih</th>
-                                                    <th>Rakip</th>
+                                                    <th>Oyuncu 1</th>
+                                                    <th>Oyuncu 2</th>
                                                     <th>Skor</th>
+                                                    <th>Kazanan</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach (var m in Model.H2H.FirstPlayerResults.OrderByDescending(x => x.EventDate).ThenByDescending(x => x.EventTime))
+                                                @foreach (var m in Model.H2H.FirstPlayerResults
+                                                    .Where(x => x.FirstPlayerKey == Model.Player1Id
+                                                        || x.SecondPlayerKey == Model.Player1Id
+                                                        || string.Equals(x.EventFirstPlayer, Model.Player1Name ?? string.Empty, System.StringComparison.OrdinalIgnoreCase)
+                                                        || string.Equals(x.EventSecondPlayer, Model.Player1Name ?? string.Empty, System.StringComparison.OrdinalIgnoreCase))
+                                                    .OrderByDescending(x => x.EventDate)
+                                                    .ThenByDescending(x => x.EventTime))
                                                 {
-                                                    <tr>
+                                                    var winnerText = (m.EventWinner ?? string.Empty).ToLowerInvariant();
+                                                    var winnerName = winnerText.Contains("first") ? m.EventFirstPlayer : winnerText.Contains("second") ? m.EventSecondPlayer : "-";
+                                                    var playerId = Model.Player1Id;
+                                                    var playerName = Model.Player1Name ?? string.Empty;
+                                                    var playerIsFirst = m.FirstPlayerKey == playerId || string.Equals(m.EventFirstPlayer, playerName, System.StringComparison.OrdinalIgnoreCase);
+                                                    var didWin = (winnerText.Contains("first") && playerIsFirst) || (winnerText.Contains("second") && !playerIsFirst);
+                                                    var rowClass = didWin ? "table-success" : "table-danger";
+                                                    <tr class="@rowClass">
                                                         <td><small>@m.EventDate @m.EventTime</small></td>
+                                                        <td><small>@m.EventFirstPlayer</small></td>
                                                         <td><small>@m.EventSecondPlayer</small></td>
                                                         <td><small>@(string.IsNullOrWhiteSpace(m.EventFinalResult) ? m.EventGameResult : m.EventFinalResult)</small></td>
+                                                        <td><small>@winnerName</small></td>
                                                     </tr>
                                                 }
                                             </tbody>
@@ -412,17 +435,34 @@
                                             <thead class="table-light">
                                                 <tr>
                                                     <th>Tarih</th>
-                                                    <th>Rakip</th>
+                                                    <th>Oyuncu 1</th>
+                                                    <th>Oyuncu 2</th>
                                                     <th>Skor</th>
+                                                    <th>Kazanan</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach (var m in Model.H2H.SecondPlayerResults.OrderByDescending(x => x.EventDate).ThenByDescending(x => x.EventTime))
+                                                @foreach (var m in Model.H2H.SecondPlayerResults
+                                                    .Where(x => x.FirstPlayerKey == Model.Player2Id
+                                                        || x.SecondPlayerKey == Model.Player2Id
+                                                        || string.Equals(x.EventFirstPlayer, Model.Player2Name ?? string.Empty, System.StringComparison.OrdinalIgnoreCase)
+                                                        || string.Equals(x.EventSecondPlayer, Model.Player2Name ?? string.Empty, System.StringComparison.OrdinalIgnoreCase))
+                                                    .OrderByDescending(x => x.EventDate)
+                                                    .ThenByDescending(x => x.EventTime))
                                                 {
-                                                    <tr>
+                                                    var winnerText = (m.EventWinner ?? string.Empty).ToLowerInvariant();
+                                                    var winnerName = winnerText.Contains("first") ? m.EventFirstPlayer : winnerText.Contains("second") ? m.EventSecondPlayer : "-";
+                                                    var playerId = Model.Player2Id;
+                                                    var playerName = Model.Player2Name ?? string.Empty;
+                                                    var playerIsFirst = m.FirstPlayerKey == playerId || string.Equals(m.EventFirstPlayer, playerName, System.StringComparison.OrdinalIgnoreCase);
+                                                    var didWin = (winnerText.Contains("first") && playerIsFirst) || (winnerText.Contains("second") && !playerIsFirst);
+                                                    var rowClass = didWin ? "table-success" : "table-danger";
+                                                    <tr class="@rowClass">
                                                         <td><small>@m.EventDate @m.EventTime</small></td>
                                                         <td><small>@m.EventFirstPlayer</small></td>
+                                                        <td><small>@m.EventSecondPlayer</small></td>
                                                         <td><small>@(string.IsNullOrWhiteSpace(m.EventFinalResult) ? m.EventGameResult : m.EventFinalResult)</small></td>
+                                                        <td><small>@winnerName</small></td>
                                                     </tr>
                                                 }
                                             </tbody>
