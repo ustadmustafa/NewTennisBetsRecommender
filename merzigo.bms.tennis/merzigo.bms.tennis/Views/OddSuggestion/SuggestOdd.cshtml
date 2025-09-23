@@ -545,7 +545,7 @@
                 }
             }
             <a class="btn btn-primary"
-               href="@Url.Action("CalculateOdds", "OddSuggestion", new { matchId = matchIdQuery.ToString(), player1 = Model?.Player1Name, player2 = Model?.Player2Name, player1Id = Model?.Player1Id, player2Id = Model?.Player2Id, s_player1 = s1, s_player2 = s2, player1_winrate = player1_winrate, player2_winrate = player2_winrate, h2h_winner = h2h_winner })">
+               href="@Url.Action("CalculateOdds", "OddSuggestion", new { matchId = matchIdQuery.ToString(), player1 = Model?.Player1Name, player2 = Model?.Player2Name, player1Id = Model?.Player1Id, player2Id = Model?.Player2Id, s_player1 = s1, s_player2 = s2, player1_winrate = player1_winrate, player2_winrate = player2_winrate, h2h_winner = h2h_winner, matchType = Model?.MatchType })">
                 <i class="fas fa-calculator"></i> Calculate Odds
             </a>
         </div>

@@ -70,8 +70,11 @@
                 <strong>Maç Oranları</strong>
             </div>
             <div class="card-body">
-                @if (Model?.Odds != null && Model.Odds.Result != null && Model.Odds.Result.Any())
+                @if ((Model?.MatchType ?? "").ToLower() != "live")
                 {
+                    // Pre-match odds show when NOT live
+                    if (Model?.Odds != null && Model.Odds.Result != null && Model.Odds.Result.Any())
+                    {
                     var firstBook = Model.Odds.Result.First();
                     var matchOdds = firstBook.Value;
                     <div class="row g-3">
@@ -185,17 +188,19 @@
                             }
                         </div>
                     </div>
-                }
-                else
-                {
-                    <div class="text-muted">Maç oranı verisi bulunamadı.</div>
+                    }
+                    else
+                    {
+                        <div class="text-muted">Maç oranı verisi bulunamadı.</div>
+                    }
                 }
 
-                <hr />
-
-                <h6>Canlı Oranlar</h6>
-                @if (Model?.LiveOdds != null && Model.LiveOdds.Result != null && Model.LiveOdds.Result.Any())
+                @if ((Model?.MatchType ?? "").ToLower() == "live")
                 {
+                    <hr />
+                    <h6>Canlı Oranlar</h6>
+                    if (Model?.LiveOdds != null && Model.LiveOdds.Result != null && Model.LiveOdds.Result.Any())
+                    {
                     var firstLive = Model.LiveOdds.Result.First();
                     var liveDetail = firstLive.Value;
                     if (liveDetail.LiveOdds != null && liveDetail.LiveOdds.Any())
@@ -232,10 +237,7 @@
                     {
                         <div class="text-muted">Canlı oran bulunamadı.</div>
                     }
-                }
-                else
-                {
-                    <div class="text-muted">Canlı oran verisi bulunamadı.</div>
+                    }
                 }
             </div>
         </div>

@@ -225,7 +225,8 @@
                                                         data-player1="@match.EventFirstPlayer"
                                                         data-player1-id="@match.FirstPlayerKey"
                                                         data-player2="@match.EventSecondPlayer"
-                                                        data-player2-id ="@match.SecondPlayerKey">
+                                                        data-player2-id ="@match.SecondPlayerKey"
+                                                        data-match-type="live">
                                                     <i class="fas fa-coins"></i> Bahis Öner
                                                 </button>
                                             </div>
@@ -303,7 +304,8 @@
                                                         data-player1="@match.EventFirstPlayer"
                                                         data-player1-id="@match.FirstPlayerKey"
                                                         data-player2="@match.EventSecondPlayer"
-                                                        data-player2-id="@match.SecondPlayerKey">
+                                                        data-player2-id="@match.SecondPlayerKey"
+                                                        data-match-type="upcoming">
                                                     <i class="fas fa-coins"></i> Bahis Öner
                                                 </button>
                                             </div>
@@ -384,6 +386,17 @@
                                                     </span>
                                                 </div>
                                             }
+                                            <div class="text-center">
+                                                <button class="btn btn-success btn-sm betting-btn"
+                                                        data-match-id="@match.EventKey"
+                                                        data-player1="@match.EventFirstPlayer"
+                                                        data-player1-id="@match.FirstPlayerKey"
+                                                        data-player2="@match.EventSecondPlayer"
+                                                        data-player2-id ="@match.SecondPlayerKey"
+                                                        data-match-type="finished">
+                                                    <i class="fas fa-coins"></i> Bahis Öner
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -483,7 +496,8 @@
                 var player1Id = $(this).data('player1-id');
                 var player2 = encodeURIComponent($(this).data('player2'));
                 var player2Id = $(this).data('player2-id');
-                var url = `/OddSuggestion/SuggestOdd?matchId=${matchId}&player1=${player1}&player2=${player2}&player1Id=${player1Id}&player2Id=${player2Id}`;
+                var matchType = $(this).data('match-type') || '';
+                var url = `/OddSuggestion/SuggestOdd?matchId=${matchId}&player1=${player1}&player2=${player2}&player1Id=${player1Id}&player2Id=${player2Id}&matchType=${matchType}`;
                 window.location.href = url;
             });
 

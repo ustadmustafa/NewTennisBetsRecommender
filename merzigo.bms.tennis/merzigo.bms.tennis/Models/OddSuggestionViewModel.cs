@@ -20,5 +20,7 @@ namespace merzigo.bms.tennis.Models
 
         public merzigo.bms.tennis.Models.Odds.OddsResponse? Odds { get; set; }
         public merzigo.bms.tennis.Models.Odds.LiveOddsResponse? LiveOdds { get; set; }
+
+        public string? MatchType { get; set; }
     }
 }

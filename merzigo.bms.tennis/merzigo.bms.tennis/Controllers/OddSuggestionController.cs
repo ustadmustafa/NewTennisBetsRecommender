@@ -13,7 +13,7 @@ namespace merzigo.bms.tennis.Controllers
         {
             _apiService = apiService;
         }
-        public async Task<IActionResult> SuggestOdd(long matchId, string player1, string player2, long player1Id, long player2Id)
+        public async Task<IActionResult> SuggestOdd(long matchId, string player1, string player2, long player1Id, long player2Id, string? matchType = null)
         {
             var dateStart = DateTime.Now.AddYears(-5);
             var dateStop = DateTime.Now;
@@ -53,7 +53,8 @@ namespace merzigo.bms.tennis.Controllers
                 Player1 = players1?.FirstOrDefault(),
                 Player2 = players2?.FirstOrDefault(),
                 Odds = odds,
-                LiveOdds = liveOdds
+                LiveOdds = liveOdds,
+                MatchType = matchType
             };
 
             return View(vm);
@@ -75,7 +76,7 @@ namespace merzigo.bms.tennis.Controllers
         }
 
         [HttpGet]
-        public IActionResult CalculateOdds(long matchId, string player1, string player2, long player1Id, long player2Id, double? s_player1 = null, double? s_player2 = null, double? player1_winrate = null, double? player2_winrate = null, long? h2h_winner = null)
+        public IActionResult CalculateOdds(long matchId, string player1, string player2, long player1Id, long player2Id, double? s_player1 = null, double? s_player2 = null, double? player1_winrate = null, double? player2_winrate = null, long? h2h_winner = null, string? matchType = null)
         {
             double? p_base = 0;
             double? winrate_diff = 0;
@@ -155,6 +156,7 @@ namespace merzigo.bms.tennis.Controllers
                 Probability_1_2 = p_set.HasValue ? 2 * (1 - p_set) * (1 - p_set) * p_set : null,
                 Odds = odds?.Result,
                 LiveOdds = liveOdds?.Result,
+                MatchType = matchType,
             };
 
             return View(vm);
