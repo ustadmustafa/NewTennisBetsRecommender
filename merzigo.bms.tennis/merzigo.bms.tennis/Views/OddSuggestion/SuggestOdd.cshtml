@@ -674,9 +674,57 @@
                 double s2 = 0.0; 
                 if (int.TryParse(Model?.Player1Standing?.place, out var rank1) && rank1 > 0) { s1 = 1.0 / rank1; }
                 if (int.TryParse(Model?.Player2Standing?.place, out var rank2) && rank2 > 0) { s2 = 1.0 / rank2; }
+                // Winrate calculations from H2H lists
+                double p1Wins = 0, p1Total = 0, p2Wins = 0, p2Total = 0;
+                if (Model?.H2H?.FirstPlayerResults != null)
+                {
+                    foreach (var m in Model.H2H.FirstPlayerResults)
+                    {
+                        bool participated = (m.FirstPlayerKey == Model.Player1Id) || (m.SecondPlayerKey == Model.Player1Id)
+                            || string.Equals(m.EventFirstPlayer, Model.Player1Name ?? string.Empty, System.StringComparison.OrdinalIgnoreCase)
+                            || string.Equals(m.EventSecondPlayer, Model.Player1Name ?? string.Empty, System.StringComparison.OrdinalIgnoreCase);
+                        if (!participated) continue;
+                        p1Total++;
+                        var winner = (m.EventWinner ?? string.Empty).ToLowerInvariant();
+                        bool playerIsFirst = (m.FirstPlayerKey == Model.Player1Id) || string.Equals(m.EventFirstPlayer, Model.Player1Name ?? string.Empty, System.StringComparison.OrdinalIgnoreCase);
+                        bool didWin = (winner.Contains("first") && playerIsFirst) || (winner.Contains("second") && !playerIsFirst);
+                        if (didWin) p1Wins++;
+                    }
+                }
+                if (Model?.H2H?.SecondPlayerResults != null)
+                {
+                    foreach (var m in Model.H2H.SecondPlayerResults)
+                    {
+                        bool participated = (m.FirstPlayerKey == Model.Player2Id) || (m.SecondPlayerKey == Model.Player2Id)
+                            || string.Equals(m.EventFirstPlayer, Model.Player2Name ?? string.Empty, System.StringComparison.OrdinalIgnoreCase)
+                            || string.Equals(m.EventSecondPlayer, Model.Player2Name ?? string.Empty, System.StringComparison.OrdinalIgnoreCase);
+                        if (!participated) continue;
+                        p2Total++;
+                        var winner = (m.EventWinner ?? string.Empty).ToLowerInvariant();
+                        bool playerIsFirst = (m.FirstPlayerKey == Model.Player2Id) || string.Equals(m.EventFirstPlayer, Model.Player2Name ?? string.Empty, System.StringComparison.OrdinalIgnoreCase);
+                        bool didWin = (winner.Contains("first") && playerIsFirst) || (winner.Contains("second") && !playerIsFirst);
+                        if (didWin) p2Wins++;
+                    }
+                }
+                double player1_winrate = (p1Total > 0) ? (p1Wins / p1Total) : 0.0;
+                double player2_winrate = (p2Total > 0) ? (p2Wins / p2Total) : 0.0;
+                // H2H mutual winner
+                long? h2h_winner = null;
+                if (Model?.H2H?.H2H != null && Model.H2H.H2H.Any())
+                {
+                    int firstWins = 0, secondWins = 0;
+                    foreach (var m in Model.H2H.H2H)
+                    {
+                        var winner = (m.EventWinner ?? string.Empty).ToLowerInvariant();
+                        if (winner.Contains("first")) firstWins++;
+                        else if (winner.Contains("second")) secondWins++;
+                    }
+                    if (firstWins > secondWins) h2h_winner = Model.Player1Id;
+                    else if (secondWins > firstWins) h2h_winner = Model.Player2Id;
+                }
             }
             <a class="btn btn-primary"
-               href="@Url.Action("CalculateOdds", "OddSuggestion", new { matchId = matchIdQuery.ToString(), player1 = Model?.Player1Name, player2 = Model?.Player2Name, player1Id = Model?.Player1Id, player2Id = Model?.Player2Id, s_player1 = s1, s_player2 = s2 })">
+               href="@Url.Action("CalculateOdds", "OddSuggestion", new { matchId = matchIdQuery.ToString(), player1 = Model?.Player1Name, player2 = Model?.Player2Name, player1Id = Model?.Player1Id, player2Id = Model?.Player2Id, s_player1 = s1, s_player2 = s2, player1_winrate = player1_winrate, player2_winrate = player2_winrate, h2h_winner = h2h_winner })">
                 <i class="fas fa-calculator"></i> Calculate Odds
             </a>
         </div>

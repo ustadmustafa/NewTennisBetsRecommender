@@ -75,20 +75,43 @@ namespace merzigo.bms.tennis.Controllers
         }
 
         [HttpGet]
-        public IActionResult CalculateOdds(long matchId, string player1, string player2, long player1Id, long player2Id, double? s_player1 = null, double? s_player2 = null)
+        public IActionResult CalculateOdds(long matchId, string player1, string player2, long player1Id, long player2Id, double? s_player1 = null, double? s_player2 = null, double? player1_winrate = null, double? player2_winrate = null, long? h2h_winner = null)
         {
-            double? p_base = 0; 
+            double? p_base = 0;
+            double? winrate_diff = 0;
+           
             if (s_player1 > s_player2)
             {
                 p_base = s_player1 / (s_player1 + s_player2);
+                if (h2h_winner == player1Id)
+                {
+                    p_base += 0.05; // H2H galibiyeti varsa %5 ekle
+                    if (player1_winrate > player2_winrate)
+                    {
+                        winrate_diff = player1_winrate - player2_winrate;
+                        winrate_diff = winrate_diff / 10;
+                    }
+                    p_base += winrate_diff;
+                }
             }
             else
             {
                 p_base = s_player2 / (s_player1 + s_player2);
+                if (h2h_winner == player2Id)
+                {
+                    p_base += 0.05; // H2H galibiyeti varsa %5 ekle
+                    if (player2_winrate > player1_winrate)
+                    {
+                        winrate_diff = player2_winrate - player1_winrate;
+                        winrate_diff = winrate_diff / 10;
+                    }
+                    p_base += winrate_diff;
+
+                }
             }
 
 
-             return RedirectToAction(nameof(SuggestOdd), new { matchId, player1, player2, player1Id, player2Id, s_player1, s_player2 });
+            return RedirectToAction(nameof(SuggestOdd), new { matchId, player1, player2, player1Id, player2Id, s_player1, s_player2, player1_winrate, player2_winrate, h2h_winner });
         }
     }
 }
