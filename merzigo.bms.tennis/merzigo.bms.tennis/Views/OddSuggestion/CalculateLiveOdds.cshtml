@@ -1,0 +1,151 @@
+@model merzigo.bms.tennis.Models.CalculateOddsViewModel
+@{
+    ViewData["Title"] = "Calculate Live Odds";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-3">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <h2 class="mb-0"><i class="fas fa-bolt"></i> Canlı Oranlar ve Skor</h2>
+            <a class="btn btn-outline-secondary btn-sm" href="javascript:history.back()">
+                <i class="fas fa-arrow-left"></i> Geri
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-3">
+        <div class="card-header bg-primary text-white">
+            <strong>Maç Bilgisi</strong>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-3"><div class="text-muted">Match ID</div><div class="fw-semibold">@Model.MatchId</div></div>
+                <div class="col-md-4"><div class="text-muted">Oyuncu 1</div><div class="fw-semibold">@Model.Player1Name (@Model.Player1Id)</div></div>
+                <div class="col-md-4"><div class="text-muted">Oyuncu 2</div><div class="fw-semibold">@Model.Player2Name (@Model.Player2Id)</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-lg-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-warning">
+                    <strong>Canlı Skor</strong>
+                </div>
+                <div class="card-body">
+                    @if (Model?.LiveScores != null && Model.LiveScores.Any())
+                    {
+                        var ls = Model.LiveScores.FirstOrDefault();
+                        if (ls != null)
+                        {
+                            <div class="mb-2">
+                                <div class="text-muted">Durum</div>
+                                <div class="fw-semibold">@ls.EventStatus</div>
+                            </div>
+                            <div class="mb-2">
+                                <div class="text-muted">Set/Game Skor</div>
+                                <div class="fw-semibold">@ls.EventGameResult</div>
+                            </div>
+                            <div class="mb-2">
+                                <div class="text-muted">Sonuç</div>
+                                <div class="fw-semibold">@ls.EventFinalResult</div>
+                            </div>
+                            <div class="mb-2">
+                                <div class="text-muted">Servis</div>
+                                <div class="fw-semibold">@ls.EventServe</div>
+                            </div>
+
+                            @if (ls.Scores != null && ls.Scores.Any())
+                            {
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-striped align-middle mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Set</th>
+                                                <th>@Model.Player1Name</th>
+                                                <th>@Model.Player2Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var s in ls.Scores)
+                                            {
+                                                <tr>
+                                                    <td><small>@s.ScoreSet</small></td>
+                                                    <td><small>@s.ScoreFirst</small></td>
+                                                    <td><small>@s.ScoreSecond</small></td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="text-muted">Set skorları bulunamadı.</div>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-muted">Canlı skor bulunamadı.</div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-success text-white">
+                    <strong>Canlı Oranlar</strong>
+                </div>
+                <div class="card-body">
+                    @if (Model?.LiveOdds != null && Model.LiveOdds.Result != null && Model.LiveOdds.Result.Any())
+                    {
+                        var firstLive = Model.LiveOdds.Result.First();
+                        var liveDetail = firstLive.Value;
+                        if (liveDetail.LiveOdds != null && liveDetail.LiveOdds.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Bahis</th>
+                                            <th>Tür</th>
+                                            <th>Değer</th>
+                                            <th>Handicap</th>
+                                            <th>Durum</th>
+                                            <th>Güncelleme</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var lo in liveDetail.LiveOdds.Where(lo => (lo.Suspended ?? string.Empty).ToLower() != "yes"))
+                                        {
+                                            <tr>
+                                                <td><small>@lo.OddName</small></td>
+                                                <td><small>@lo.Type</small></td>
+                                                <td><small>@lo.Value</small></td>
+                                                <td><small>@lo.Handicap</small></td>
+                                                <td><small>@lo.Suspended</small></td>
+                                                <td><small>@lo.Updated</small></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-muted">Canlı oran bulunamadı.</div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-muted">Canlı oran verisi bulunamadı.</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -162,23 +162,115 @@ namespace merzigo.bms.tennis.Controllers
             return View(vm);
         }
 
-        public IActionResult CalculateLiveOdds(long matchId, string player1, string player2, long player1Id, long player2Id, double? s_player1 = null, double? s_player2 = null, double? player1_winrate = null, double? player2_winrate = null, long? h2h_winner = null, string? matchType = null)
+        public async Task<IActionResult> CalculateLiveOdds(long matchId, string player1, string player2, long player1Id, long player2Id, double? s_player1 = null, double? s_player2 = null, double? player1_winrate = null, double? player2_winrate = null, long? h2h_winner = null, string? matchType = null)
         {
-            // For now, reuse CalculateOdds view/model; controller already fetches LiveOdds data too
-            return RedirectToAction(nameof(CalculateOdds), new
+
+            var livescores = await _apiService.GetLivescore(matchKey: matchId);
+            var liveOdds = await _apiService.GetLiveOdds(matchKey: matchId);
+
+            double p_base = 0;
+            double winrate_diff = 0;
+            //double? odd_prob = 0;
+            double p_set = 0;
+
+
+            if (s_player1.HasValue && s_player2.HasValue)
             {
-                matchId,
-                player1,
-                player2,
-                player1Id,
-                player2Id,
-                s_player1,
-                s_player2,
-                player1_winrate,
-                player2_winrate,
-                h2h_winner,
-                matchType
-            });
+                if (s_player1 > s_player2)
+                {
+                    p_base = (double)(s_player1 / (s_player1 + s_player2));
+                    if (h2h_winner == player1Id) p_base += 0.05;
+                    if(player1_winrate > player2_winrate)
+                    {
+                        winrate_diff = (double)((player1_winrate - player2_winrate) / 10);
+                        p_base += winrate_diff;
+                    }
+                }
+                else
+                {
+                    p_base = (double)(s_player2 / (s_player1 + s_player2));
+                    if (h2h_winner == player2Id) p_base += 0.05;
+                    if(player2_winrate > player1_winrate)
+                    {
+                        winrate_diff = (double)((player2_winrate - player1_winrate) / 10);
+                        p_base += winrate_diff;
+                    }
+                }             
+            }
+
+            if (livescores != null)
+            {
+                int setsP1 = livescores.SetsPlayer1;
+                int setsP2 = livescores.SetsPlayer2;
+                int gamesP1 = livescores.CurrentSetGamesPlayer1;
+                int gamesP2 = livescores.CurrentSetGamesPlayer2;
+
+                // Set bazlı avantaj
+                if (setsP1 == 1 && setsP2 == 0)
+                    p_base += 0.15 * (1 - p_base);
+                else if (setsP2 == 1 && setsP1 == 0)
+                    p_base -= 0.15 * p_base;
+
+                // Oyun bazlı momentum (küçük etki)
+                if (gamesP1 > gamesP2)
+                    p_base += 0.02 * (1 - p_base);
+                else if (gamesP2 > gamesP1)
+                    p_base -= 0.02 * p_base;
+
+                // Clamp (0.01–0.99 aralığında tut)
+                p_base = Math.Clamp(p_base, 0.01, 0.99);
+            }
+
+            p_set = CalculateSetProbability(p_base);
+
+            double? p_2_0 = p_set * p_set;
+            double? p_2_1 = 2 * p_set * p_set * (1 - p_set);
+            double? p_0_2 = (1 - p_set) * (1 - p_set);
+            double? p_1_2 = 2 * (1 - p_set) * (1 - p_set) * p_set;
+
+            if (livescores != null)
+            {
+                int setsP1 = livescores.SetsPlayer1;
+                int setsP2 = livescores.SetsPlayer2;
+
+                if (setsP1 == 1) // Player1 zaten 1 set aldı
+                {
+                    p_0_2 = null;
+                    p_1_2 = null;
+                }
+                else if (setsP2 == 1) // Player2 zaten 1 set aldı
+                {
+                    p_2_0 = null;
+                    p_2_1 = null;
+                }
+            }
+
+            var vm = new CalculateOddsViewModel
+            {
+                MatchId = matchId,
+                Player1Name = player1,
+                Player2Name = player2,
+                Player1Id = player1Id,
+                Player2Id = player2Id,
+                SPlayer1 = s_player1,
+                SPlayer2 = s_player2,
+                Player1Winrate = player1_winrate,
+                Player2Winrate = player2_winrate,
+                H2HWinner = h2h_winner,
+                FavoredPlayerId = (s_player1 >= s_player2 ? player1Id : player2Id),
+                BaseMatchProbability = p_base,
+                SetProbability = p_set,
+                Probability_2_0 = p_2_0,
+                Probability_2_1 = p_2_1,
+                Probability_0_2 = p_0_2,
+                Probability_1_2 = p_1_2,
+                Odds = null,
+                LiveOdds = liveOdds,
+                LiveScores = livescores,
+                MatchType = matchType ?? "live"
+            };
+
+            return View("CalculateLiveOdds", vm);
         }
 
         private double CalculateSetProbability(double? p_match, double tolerance = 1e-6)
