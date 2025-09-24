@@ -9,89 +9,89 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = merzigo.bms.tennis
 build_property.RootNamespace = merzigo.bms.tennis
-build_property.ProjectDir = C:\Users\mustafa.albayrak\Desktop\yenirepo\NewTennisBetsRecommender\merzigo.bms.tennis\merzigo.bms.tennis\
+build_property.ProjectDir = C:\Users\mustafa.albayrak\Desktop\yenirepo2\NewTennisBetsRecommender\merzigo.bms.tennis\merzigo.bms.tennis\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\mustafa.albayrak\Desktop\yenirepo\NewTennisBetsRecommender\merzigo.bms.tennis\merzigo.bms.tennis
+build_property.MSBuildProjectDirectory = C:\Users\mustafa.albayrak\Desktop\yenirepo2\NewTennisBetsRecommender\merzigo.bms.tennis\merzigo.bms.tennis
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Pages/Error.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Pages/Index.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Pages/Privacy.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Pages/_ViewImports.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Pages/_ViewStart.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/Events/GetEvents.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/Events/GetEvents.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRzXEdldEV2ZW50cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/Fixtures/GetFixtures.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/Fixtures/GetFixtures.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4dHVyZXNcR2V0Rml4dHVyZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/H2H/GetH2H.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/H2H/GetH2H.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSDJIXEdldEgySC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/Home/Index.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/Index.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/LiveOdds/GetLiveOdds.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/LiveOdds/GetLiveOdds.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGl2ZU9kZHNcR2V0TGl2ZU9kZHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/Livescore/GetLivescore.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/Livescore/GetLivescore.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGl2ZXNjb3JlXEdldExpdmVzY29yZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/OddSuggestion/CalculateOdds.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/OddSuggestion/CalculateOdds.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2RkU3VnZ2VzdGlvblxDYWxjdWxhdGVPZGRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/OddSuggestion/SuggestOdd.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/OddSuggestion/SuggestOdd.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2RkU3VnZ2VzdGlvblxTdWdnZXN0T2RkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/Odds/GetOdds.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/Odds/GetOdds.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2Rkc1xHZXRPZGRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/Players/GetPlayers.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/Players/GetPlayers.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyc1xHZXRQbGF5ZXJzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/Standings/GetStandings.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Views/Standings/GetStandings.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhbmRpbmdzXEdldFN0YW5kaW5ncy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mustafa.albayrak/Desktop/yenirepo/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Pages/Shared/_Layout.cshtml]
+[C:/Users/mustafa.albayrak/Desktop/yenirepo2/NewTennisBetsRecommender/merzigo.bms.tennis/merzigo.bms.tennis/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-d8vke7vgzx

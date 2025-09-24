@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mustafa.albayrak\\Desktop\\yenirepo\\NewTennisBetsRecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\merzigo.bms.tennis.csproj": {}
+    "C:\\Users\\mustafa.albayrak\\Desktop\\yenirepo2\\NewTennisBetsRecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\merzigo.bms.tennis.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mustafa.albayrak\\Desktop\\yenirepo\\NewTennisBetsRecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\merzigo.bms.tennis.csproj": {
+    "C:\\Users\\mustafa.albayrak\\Desktop\\yenirepo2\\NewTennisBetsRecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\merzigo.bms.tennis.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mustafa.albayrak\\Desktop\\yenirepo\\NewTennisBetsRecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\merzigo.bms.tennis.csproj",
+        "projectUniqueName": "C:\\Users\\mustafa.albayrak\\Desktop\\yenirepo2\\NewTennisBetsRecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\merzigo.bms.tennis.csproj",
         "projectName": "merzigo.bms.tennis",
-        "projectPath": "C:\\Users\\mustafa.albayrak\\Desktop\\yenirepo\\NewTennisBetsRecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\merzigo.bms.tennis.csproj",
+        "projectPath": "C:\\Users\\mustafa.albayrak\\Desktop\\yenirepo2\\NewTennisBetsRecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\merzigo.bms.tennis.csproj",
         "packagesPath": "C:\\Users\\mustafa.albayrak\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mustafa.albayrak\\Desktop\\yenirepo\\NewTennisBetsRecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\obj\\",
+        "outputPath": "C:\\Users\\mustafa.albayrak\\Desktop\\yenirepo2\\NewTennisBetsRecommender\\merzigo.bms.tennis\\merzigo.bms.tennis\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

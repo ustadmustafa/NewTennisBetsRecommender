@@ -12,10 +12,10 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["merzigo.bms.tennis/merzigo.bms.tennis.csproj", "merzigo.bms.tennis/"]
+COPY ["merzigo.bms.tennis/merzigo.bms.tennis/merzigo.bms.tennis.csproj", "merzigo.bms.tennis/"]
 RUN dotnet restore "./merzigo.bms.tennis/merzigo.bms.tennis.csproj"
 COPY . .
-WORKDIR "/src/merzigo.bms.tennis"
+WORKDIR "/src/merzigo.bms.tennis/merzigo.bms.tennis"
 RUN dotnet build "./merzigo.bms.tennis.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Bu aşama, son aşamaya kopyalanacak hizmet projesini yayımlamak için kullanılır

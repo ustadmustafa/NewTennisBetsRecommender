@@ -162,6 +162,25 @@ namespace merzigo.bms.tennis.Controllers
             return View(vm);
         }
 
+        public IActionResult CalculateLiveOdds(long matchId, string player1, string player2, long player1Id, long player2Id, double? s_player1 = null, double? s_player2 = null, double? player1_winrate = null, double? player2_winrate = null, long? h2h_winner = null, string? matchType = null)
+        {
+            // For now, reuse CalculateOdds view/model; controller already fetches LiveOdds data too
+            return RedirectToAction(nameof(CalculateOdds), new
+            {
+                matchId,
+                player1,
+                player2,
+                player1Id,
+                player2Id,
+                s_player1,
+                s_player2,
+                player1_winrate,
+                player2_winrate,
+                h2h_winner,
+                matchType
+            });
+        }
+
         private double CalculateSetProbability(double? p_match, double tolerance = 1e-6)
         {
             double low = 0.0;

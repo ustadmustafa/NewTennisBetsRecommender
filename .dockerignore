@@ -1,0 +1,35 @@
+# Build artifacts
+**/bin/
+**/obj/
+
+# User-specific files
+**/*.user
+**/*.sxh
+**/*.suo
+
+# Visual Studio
+**/.vs/
+
+# Rider / JetBrains
+**/.idea/
+
+# Logs
+**/*.log
+
+# Node
+**/node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile*
+!merzigo.bms.tennis/merzigo.bms.tennis/Dockerfile
+
+# Publish output
+**/publish/
